@@ -1,0 +1,12 @@
+# falcon
+falcon/node_modules
+.pnp
+.pnp.js
+falcon/coverage
+falcon/build
+falcon/.DS_Store
+falcon/.env.local
+falcon/.env.development.local
+falcon/.env.test.local
+falcon/.env.production.local
+falcon/npm-debug.log*
