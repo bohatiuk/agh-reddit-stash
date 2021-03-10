@@ -1,9 +1,9 @@
 # falcon
-falcon/node_modules
+falcon/node_modules/
 .pnp
 .pnp.js
-falcon/coverage
-falcon/build
+falcon/coverage/
+falcon/build/
 falcon/.DS_Store
 falcon/.env.local
 falcon/.env.development.local
