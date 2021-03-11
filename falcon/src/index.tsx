@@ -7,19 +7,16 @@ import {
   Route,
 } from 'react-router-dom';
 import { NavigationList } from './containers/NavigationList';
-import { Dashboard } from './containers/Dashboard';
+import { App } from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Router>
     <NavigationList />
-
-    <Router>
-      <Switch>
-        <Route path='/' exact>
-          <Dashboard />
-        </Route>
-      </Switch>
-    </Router>
-  </React.StrictMode>,
+    <Switch>
+      <Route path='/' exact>
+        <App />
+      </Route>
+    </Switch>
+  </Router>,
   document.getElementById('root')
 );
