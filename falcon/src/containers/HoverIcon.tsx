@@ -10,13 +10,13 @@ const Hover = styled.div`
     color: ${styles.colorG1};
   }
 `;
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement>{
   icon: string;
   size?: 'large' | 'small';
 }
-export const HoverIcon = ({ icon, size }: Props) => {
+export const HoverIcon = ({ icon, size, ...rest }: Props) => {
   return (
-    <Hover>
+    <Hover {...rest}>
       <Icon fontSize={size}>{icon}</Icon>
     </Hover>
   );

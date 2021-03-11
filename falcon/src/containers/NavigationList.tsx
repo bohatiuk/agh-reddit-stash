@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Drawer, Icon } from '@material-ui/core';
 import { NavigationEntry } from '../components/NavigationEntry';
 import styled from 'styled-components';
-import { styles } from '../styles/styleguide';
+import { styles, toggleTheme } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
 import { HoverIcon } from './HoverIcon';
@@ -61,7 +61,7 @@ export const NavigationList = () => {
             </a>
           </LinksContainer>
           <div>
-            <HoverIcon size='large' icon='invert_colors' />
+            <HoverIcon size='large' icon='invert_colors'/>
           </div>
         </Container>
       </Drawer>
@@ -72,7 +72,7 @@ export const NavigationList = () => {
     const icon = isOpen ? 'menu_open' : 'menu';
     return (
       <MenuContainer onClick={() => setIsOpen(!isOpen)}>
-        <HoverIcon size='large' icon={icon} />
+        <HoverIcon onClick={toggleTheme} size='large' icon={icon} />
       </MenuContainer>
     );
   };

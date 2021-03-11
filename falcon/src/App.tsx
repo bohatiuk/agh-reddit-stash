@@ -13,7 +13,7 @@ const Global = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
 
-    color: ${styles.colorText3};
+    color: ${styles.colorText1};
     background-color: ${styles.colorBG1};
   }
 
