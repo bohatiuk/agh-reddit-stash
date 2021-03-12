@@ -25,7 +25,7 @@
       "no-conditional-assignment": true,
       "no-consecutive-blank-lines": [true, 1],
       "no-console": true,
-      "no-default-export": true,
+      "no-default-export": false,
       "no-duplicate-variable": true,
       "no-empty": true,
       "no-eval": true,

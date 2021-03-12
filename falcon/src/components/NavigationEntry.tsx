@@ -3,20 +3,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { HoverBorder } from '../common/BorderAnimation';
 import { CenterDiv } from '../common/CenterDiv';
-import { styles } from '../styles/styleguide';
+import { styles, TTP } from '../styles/styleguide';
 
 const NavEntryDiv = styled.div`
   display: flex;
   align-items: center;
   height: 42px;
-  border-radius: ${styles.defaultRadius};
-  transition: all ${styles.transitionParams};
-  font: ${styles.fontN5};
+  border-radius: ${({ theme }: TTP) => theme.defaultRadius};
+  transition: all ${({ theme }: TTP) => theme.transitionParams};
+  font: ${({ theme }: TTP) => theme.fontN5};
   cursor: pointer;
-  margin-left: ${styles.m2};
+  margin-left: ${({ theme }: TTP) => theme.m2};
 
   &:hover {
-    color: ${styles.colorG1};
+    color: ${({ theme }: TTP) => theme.colorG3};
     margin-left: ${styles.m3};
   }
 `;
@@ -29,7 +29,7 @@ interface Props {
   text: string;
   icon: string;
 }
-export const NavigationEntry = ({ text, icon }: Props) => {
+function NavigationEntry({ text, icon }: Props) {
   return (
     <HoverBorder>
       <NavEntryDiv>
@@ -40,4 +40,6 @@ export const NavigationEntry = ({ text, icon }: Props) => {
       </NavEntryDiv>
     </HoverBorder>
   );
-};
+}
+
+export default NavigationEntry;

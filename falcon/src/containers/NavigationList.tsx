@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { Drawer, Icon } from '@material-ui/core';
-import { NavigationEntry } from '../components/NavigationEntry';
+import { Drawer } from '@material-ui/core';
+import NavigationEntry from '../components/NavigationEntry';
 import styled from 'styled-components';
-import { styles, toggleTheme } from '../styles/styleguide';
+import { styles, TTP } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
-import { HoverIcon } from './HoverIcon';
-import { Dot } from '../common/Dot';
+import HoverIcon from './HoverIcon';
+import { Diamond, Dot } from '../common/Shape';
+import { connect } from 'react-redux';
+import { toggleTheme as toggleThemeAction } from '../actions';
 
 const MenuContainer = styled.div`
   position: fixed;
-  margin: ${styles.m3};
+  margin: ${styles.m4};
   cursor: pointer;
+`;
+
+const NavigationMenuContainer = styled.div`
+  margin: ${styles.m3};
 `;
 
 const Container = styled.div`
@@ -22,8 +28,8 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${styles.colorBG1};
-  color: ${styles.colorText2};
+  background-color: ${({ theme }: TTP) => theme.colorBG2};
+  color:  ${({ theme }: TTP) => theme.colorText1};
 `;
 
 const LinksContainer = styled.div`
@@ -32,11 +38,11 @@ const LinksContainer = styled.div`
   flex-direction: column;
 `;
 
-const SeperatorDot = styled.div`
+const Seperator = styled.div`
   margin: ${styles.m4} auto;
 `;
 
-export const NavigationList = () => {
+function NavigationList({ toggleTheme }: Props) {
   const {
     isOpen,
     setIsOpen,
@@ -46,6 +52,12 @@ export const NavigationList = () => {
     return (
       <Drawer anchor='left' open={isOpen} onClose={() => setIsOpen(false)}>
         <Container>
+          {/* <NavigationMenuContainer> */}
+            <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon='menu_open'/>
+          {/* </NavigationMenuContainer> */}
+          <Seperator>
+            <Diamond />
+          </Seperator>
           <LinksContainer>
             <Link to='/'>
               <NavigationEntry text='Home' icon='home' />
@@ -53,26 +65,23 @@ export const NavigationList = () => {
             <Link to='/about'>
               <NavigationEntry text='About' icon='select_all' />
             </Link>
-            <SeperatorDot>
-              <Dot />
-            </SeperatorDot>
+            <Seperator>
+              <Diamond />
+            </Seperator>
             <a href={config.documentationURL} target='_blank' rel='noreferrer'>
               <NavigationEntry text='Documentation' icon='code' />
             </a>
           </LinksContainer>
-          <div>
-            <HoverIcon size='large' icon='invert_colors'/>
-          </div>
+          <HoverIcon onClick={toggleTheme} size='large' icon='invert_colors'/>
         </Container>
       </Drawer>
     );
   };
 
   const renderMenuIcon = () => {
-    const icon = isOpen ? 'menu_open' : 'menu';
     return (
-      <MenuContainer onClick={() => setIsOpen(!isOpen)}>
-        <HoverIcon onClick={toggleTheme} size='large' icon={icon} />
+      <MenuContainer>
+        <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon='menu' />
       </MenuContainer>
     );
   };
@@ -83,7 +92,7 @@ export const NavigationList = () => {
       {renderMenuIcon()}
     </>
   );
-};
+}
 
 interface State {
   isOpen: boolean;
@@ -98,3 +107,11 @@ const NavigationListState = (): State => {
     setIsOpen
   };
 };
+
+const mapDispatchToProps = {
+  toggleTheme: toggleThemeAction
+};
+
+type Props = typeof mapDispatchToProps;
+
+export default connect(undefined, mapDispatchToProps)(NavigationList);
