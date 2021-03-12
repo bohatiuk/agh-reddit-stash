@@ -6,14 +6,18 @@ import { styles, TTP } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
 import HoverIcon from './HoverIcon';
-import { Dot } from '../common/Dot';
+import { Diamond, Dot } from '../common/Shape';
 import { connect } from 'react-redux';
 import { toggleTheme as toggleThemeAction } from '../actions';
 
 const MenuContainer = styled.div`
   position: fixed;
-  margin: ${styles.m3};
+  margin: ${styles.m4};
   cursor: pointer;
+`;
+
+const NavigationMenuContainer = styled.div`
+  margin: ${styles.m3};
 `;
 
 const Container = styled.div`
@@ -34,7 +38,7 @@ const LinksContainer = styled.div`
   flex-direction: column;
 `;
 
-const SeperatorDot = styled.div`
+const Seperator = styled.div`
   margin: ${styles.m4} auto;
 `;
 
@@ -48,6 +52,12 @@ function NavigationList({ toggleTheme }: Props) {
     return (
       <Drawer anchor='left' open={isOpen} onClose={() => setIsOpen(false)}>
         <Container>
+          {/* <NavigationMenuContainer> */}
+            <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon='menu_open'/>
+          {/* </NavigationMenuContainer> */}
+          <Seperator>
+            <Diamond />
+          </Seperator>
           <LinksContainer>
             <Link to='/'>
               <NavigationEntry text='Home' icon='home' />
@@ -55,26 +65,23 @@ function NavigationList({ toggleTheme }: Props) {
             <Link to='/about'>
               <NavigationEntry text='About' icon='select_all' />
             </Link>
-            <SeperatorDot>
-              <Dot />
-            </SeperatorDot>
+            <Seperator>
+              <Diamond />
+            </Seperator>
             <a href={config.documentationURL} target='_blank' rel='noreferrer'>
               <NavigationEntry text='Documentation' icon='code' />
             </a>
           </LinksContainer>
-          <div>
-            <HoverIcon onClick={toggleTheme} size='large' icon='invert_colors'/>
-          </div>
+          <HoverIcon onClick={toggleTheme} size='large' icon='invert_colors'/>
         </Container>
       </Drawer>
     );
   };
 
   const renderMenuIcon = () => {
-    const icon = isOpen ? 'menu_open' : 'menu';
     return (
       <MenuContainer>
-        <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon={icon} />
+        <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon='menu' />
       </MenuContainer>
     );
   };

@@ -7,7 +7,7 @@ const Hover = styled.div`
   transition: color ${({ theme }: TTP) => theme.transitionParams};
   cursor: pointer;
   &:hover {
-    color: ${({ theme }: TTP) => theme.colorG1};
+    color: ${({ theme }: TTP) => theme.colorG3};
   }
 `;
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

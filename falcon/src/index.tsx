@@ -7,7 +7,6 @@ import {
   Route,
 } from 'react-router-dom';
 import NavigationList from './containers/NavigationList';
-import App from './App';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { GlobalState, rootReducer } from './reducers';

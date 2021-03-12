@@ -12,7 +12,7 @@ const colorBase = {
 const darkColors = {
   ...colorBase,
   colorBG1: '#181818',
-  colorBG2: '#606060',
+  colorBG2: '#313131',
   colorBG3: '#909090',
 
   colorText1: '#F8F8F8',
@@ -26,9 +26,9 @@ const lightColors = {
   colorText2: '#606060',
   colorText3: '#909090',
 
-  colorBG1: '#F8F8F8',
+  colorBG1: '#F0F0F0',
   colorBG2: '#E0E0E0',
-  colorBG3: '#D0D0D0',
+  colorBG3: '#B0B0B0',
 };
 
 // export const colorsRGB = {
