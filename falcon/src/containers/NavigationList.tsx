@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { styles, TTP } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
-import HoverIcon from '../components/HoverIcon';
+import HoverIcon from '../components/icons/HoverIcon';
 import { Diamond, Dot } from '../common/Shape';
 import { connect } from 'react-redux';
 import { toggleTheme as toggleThemeAction } from '../actions';

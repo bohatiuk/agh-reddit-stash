@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Twitter from '../components/icons/Twitter';
 import { styles } from '../styles/styleguide';
 
 const Container = styled.div`
@@ -9,10 +10,10 @@ const Container = styled.div`
 `;
 
 const Background = styled.div`
-  background-image: url(https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=667&q=80);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-image: url(https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=667&q=80);
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
   height: 100%;
   width: 100%;
 
@@ -41,9 +42,7 @@ function Home() {
     <Container>
       <Background />
       <Overlay>
-        <Header>
-          TWITTER STASH
-        </Header>
+        <Twitter />
       </Overlay>
     </Container>
   );
