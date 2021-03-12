@@ -11,24 +11,24 @@ const colorBase = {
 
 const darkColors = {
   ...colorBase,
-  colorBG1: '#181818', // TODO:
-  colorBG2: '#606060', // TODO:
-  colorBG3: '#909090', // TODO:
+  colorBG1: '#181818',
+  colorBG2: '#606060',
+  colorBG3: '#909090',
 
   colorText1: '#F8F8F8',
-  colorText2: '#E0E0E0', // TODO:
-  colorText3: '#D0D0D0', // TODO:
+  colorText2: '#E0E0E0',
+  colorText3: '#D0D0D0',
 };
 
 const lightColors = {
   ...colorBase,
-  colorText1: '#181818', // TODO:
-  colorText2: '#606060', // TODO:
-  colorText3: '#909090', // TODO:
+  colorText1: '#181818',
+  colorText2: '#606060',
+  colorText3: '#909090',
 
   colorBG1: '#F8F8F8',
-  colorBG2: '#E0E0E0', // TODO:
-  colorBG3: '#D0D0D0', // TODO:
+  colorBG2: '#E0E0E0',
+  colorBG3: '#D0D0D0',
 };
 
 // export const colorsRGB = {
@@ -62,22 +62,24 @@ const fonts = {
   fontN5: '20px Roboto',
 };
 
-export let styles = {
-  ...darkColors,
+export const styles = {
   ...distances,
   ...distances,
   ...params,
   ...fonts,
 };
 
-// TODO: don't hack. it probably won't work anyway, THemeProvdier
-let isDark = true;
-export const toggleTheme = () => {
-  if (isDark) {
-    styles = {...styles, ...lightColors};
-  }
-  else {
-    styles = {...styles, ...darkColors};
-  }
-  isDark = !isDark;
+export const darkTheme = {
+  ...styles,
+  ...darkColors
+};
+
+export const lightTheme = {
+  ...styles,
+  ...lightColors
+};
+
+export type Theme = typeof lightTheme;
+export type TTP = {
+  theme: Theme;
 };

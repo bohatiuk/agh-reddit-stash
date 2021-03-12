@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Dashboard } from './containers/Dashboard';
-import styled, { createGlobalStyle } from 'styled-components';
-import { styles } from './styles/styleguide';
+import Dashboard from './containers/Dashboard';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { TTP } from './styles/styleguide';
+import { GlobalState } from './reducers';
+import { connect } from 'react-redux';
 
 const Global = createGlobalStyle`
   body {
@@ -13,17 +15,28 @@ const Global = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
 
-    color: ${styles.colorText1};
-    background-color: ${styles.colorBG1};
+    color: ${({ theme }: TTP) => theme.colorText1};
+    background-color: ${({ theme }: TTP) => theme.colorBG1};
   }
 
 `;
 
-export function App() {
+function App({ theme,xx }: Props) {
+  console.log('xd', xx, theme,)
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Global />
       <Dashboard />
-    </>
+    </ThemeProvider>
   );
 }
+
+function mapStateToProps(state: GlobalState) {
+  return {
+    theme: state.style.theme,
+    xx: state.style.themeType
+  };
+}
+type Props = ReturnType<typeof mapStateToProps>;
+
+export default connect(mapStateToProps)(App);

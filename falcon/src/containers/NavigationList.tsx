@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Drawer, Icon } from '@material-ui/core';
-import { NavigationEntry } from '../components/NavigationEntry';
+import { Drawer } from '@material-ui/core';
+import NavigationEntry from '../components/NavigationEntry';
 import styled from 'styled-components';
-import { styles, toggleTheme } from '../styles/styleguide';
+import { styles, TTP } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
-import { HoverIcon } from './HoverIcon';
+import HoverIcon from './HoverIcon';
 import { Dot } from '../common/Dot';
+import { connect } from 'react-redux';
+import { toggleTheme as toggleThemeAction } from '../actions';
 
 const MenuContainer = styled.div`
   position: fixed;
@@ -22,8 +24,8 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${styles.colorBG1};
-  color: ${styles.colorText2};
+  background-color: ${({ theme }: TTP) => theme.colorBG2};
+  color:  ${({ theme }: TTP) => theme.colorText1};
 `;
 
 const LinksContainer = styled.div`
@@ -36,7 +38,7 @@ const SeperatorDot = styled.div`
   margin: ${styles.m4} auto;
 `;
 
-export const NavigationList = () => {
+function NavigationList({ toggleTheme }: Props) {
   const {
     isOpen,
     setIsOpen,
@@ -61,7 +63,7 @@ export const NavigationList = () => {
             </a>
           </LinksContainer>
           <div>
-            <HoverIcon size='large' icon='invert_colors'/>
+            <HoverIcon onClick={toggleTheme} size='large' icon='invert_colors'/>
           </div>
         </Container>
       </Drawer>
@@ -71,8 +73,8 @@ export const NavigationList = () => {
   const renderMenuIcon = () => {
     const icon = isOpen ? 'menu_open' : 'menu';
     return (
-      <MenuContainer onClick={() => setIsOpen(!isOpen)}>
-        <HoverIcon onClick={toggleTheme} size='large' icon={icon} />
+      <MenuContainer>
+        <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon={icon} />
       </MenuContainer>
     );
   };
@@ -83,7 +85,7 @@ export const NavigationList = () => {
       {renderMenuIcon()}
     </>
   );
-};
+}
 
 interface State {
   isOpen: boolean;
@@ -98,3 +100,11 @@ const NavigationListState = (): State => {
     setIsOpen
   };
 };
+
+const mapDispatchToProps = {
+  toggleTheme: toggleThemeAction
+};
+
+type Props = typeof mapDispatchToProps;
+
+export default connect(undefined, mapDispatchToProps)(NavigationList);

@@ -4,7 +4,7 @@ type Props = React.PropsWithChildren<{
   onOutsideClick: () => void;
 }>;
 
-export const OutsideClick = ({ children, onOutsideClick }: Props) => {
+function OutsideClick({ children, onOutsideClick }: Props) {
   const [ref, setRef] = useState<HTMLDivElement>();
 
   useEffect(() => {
@@ -25,4 +25,6 @@ export const OutsideClick = ({ children, onOutsideClick }: Props) => {
       {children}
     </div>
   );
-};
+}
+
+export default OutsideClick;
