@@ -5,6 +5,7 @@ falcon/node_modules/
 falcon/coverage/
 falcon/build/
 falcon/.DS_Store
+falcon/src/.DS_Store
 falcon/.env.local
 falcon/.env.development.local
 falcon/.env.test.local

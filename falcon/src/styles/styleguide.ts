@@ -31,14 +31,29 @@ const lightColors = {
   colorBG3: '#B0B0B0',
 };
 
-// export const colorsRGB = {
-//   colorG1RGB: hexToRgbString(colors.colorG1),
-//   colorG2RGB: hexToRgbString(colors.colorG2),
-//   colorG3RGB: hexToRgbString(colors.colorG3),
-//   colorG4RGB: hexToRgbString(colors.colorG4),
-//   colorG5RGB: hexToRgbString(colors.colorG5),
-//   colorG6RGB: hexToRgbString(colors.colorG6),
-// };
+export const darkColorsRGB = {
+  colorG1RGB: hexToRgbString(darkColors.colorG1),
+  colorG2RGB: hexToRgbString(darkColors.colorG2),
+  colorG3RGB: hexToRgbString(darkColors.colorG3),
+  colorG4RGB: hexToRgbString(darkColors.colorG4),
+  colorG5RGB: hexToRgbString(darkColors.colorG5),
+  colorG6RGB: hexToRgbString(darkColors.colorG6),
+  colorBG1RGB: hexToRgbString(darkColors.colorBG1),
+  colorBG2RGB: hexToRgbString(darkColors.colorBG2),
+  colorBG3RGB: hexToRgbString(darkColors.colorBG3),
+};
+
+export const lightColorsRGB = {
+  colorG1RGB: hexToRgbString(lightColors.colorG1),
+  colorG2RGB: hexToRgbString(lightColors.colorG2),
+  colorG3RGB: hexToRgbString(lightColors.colorG3),
+  colorG4RGB: hexToRgbString(lightColors.colorG4),
+  colorG5RGB: hexToRgbString(lightColors.colorG5),
+  colorG6RGB: hexToRgbString(lightColors.colorG6),
+  colorBG1RGB: hexToRgbString(lightColors.colorBG1),
+  colorBG2RGB: hexToRgbString(lightColors.colorBG2),
+  colorBG3RGB: hexToRgbString(lightColors.colorBG3),
+};
 
 const distances = {
   defaultRadius: '4px',
@@ -60,6 +75,12 @@ const fonts = {
   fontN3: '16px Roboto',
   fontN4: '18px Roboto',
   fontN5: '20px Roboto',
+
+  fontH1: '72px Roboto',
+  fontH2: '56px Roboto',
+  fontH3: '48px Roboto',
+  fontH4: '42px Roboto',
+  fontH5: '36px Roboto',
 };
 
 export const styles = {
@@ -71,12 +92,14 @@ export const styles = {
 
 export const darkTheme = {
   ...styles,
-  ...darkColors
+  ...darkColors,
+  ...darkColorsRGB,
 };
 
 export const lightTheme = {
   ...styles,
-  ...lightColors
+  ...lightColors,
+  ...lightColorsRGB,
 };
 
 export type Theme = typeof lightTheme;

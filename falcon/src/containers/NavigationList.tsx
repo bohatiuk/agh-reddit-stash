@@ -5,19 +5,17 @@ import styled from 'styled-components';
 import { styles, TTP } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
-import HoverIcon from './HoverIcon';
+import HoverIcon from '../components/HoverIcon';
 import { Diamond, Dot } from '../common/Shape';
 import { connect } from 'react-redux';
 import { toggleTheme as toggleThemeAction } from '../actions';
+import './NavigationList.css';
 
 const MenuContainer = styled.div`
   position: fixed;
   margin: ${styles.m4};
   cursor: pointer;
-`;
-
-const NavigationMenuContainer = styled.div`
-  margin: ${styles.m3};
+  z-index: 10;
 `;
 
 const Container = styled.div`
@@ -28,7 +26,7 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${({ theme }: TTP) => theme.colorBG2};
+  background-color: ${({ theme }: TTP) => `rgba(${theme.colorBG2RGB}, 0.3)`};
   color:  ${({ theme }: TTP) => theme.colorText1};
 `;
 
@@ -45,29 +43,37 @@ const Seperator = styled.div`
 function NavigationList({ toggleTheme }: Props) {
   const {
     isOpen,
-    setIsOpen,
+    toggleOpen,
   } = NavigationListState();
 
   const renderDrawer = () => {
     return (
-      <Drawer anchor='left' open={isOpen} onClose={() => setIsOpen(false)}>
+      <Drawer
+        anchor='left'
+        open={isOpen}
+        onClose={toggleOpen}
+        classes={{paper: 'drawer-bg'}}
+      >
         <Container>
           {/* <NavigationMenuContainer> */}
-            <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon='menu_open'/>
+            <HoverIcon onClick={toggleOpen} size='large' icon='menu_open'/>
           {/* </NavigationMenuContainer> */}
           <Seperator>
             <Diamond />
           </Seperator>
           <LinksContainer>
             <Link to='/'>
-              <NavigationEntry text='Home' icon='home' />
+              <NavigationEntry text='Home' icon='home' onClick={toggleOpen} />
             </Link>
-            <Link to='/about'>
-              <NavigationEntry text='About' icon='select_all' />
+            <Link to='/dashboard'>
+              <NavigationEntry text='Dashbard' icon='select_all' onClick={toggleOpen} />
             </Link>
             <Seperator>
               <Diamond />
             </Seperator>
+            <Link to='/about'>
+              <NavigationEntry text='About' icon='fingerprint' onClick={toggleOpen} />
+            </Link>
             <a href={config.documentationURL} target='_blank' rel='noreferrer'>
               <NavigationEntry text='Documentation' icon='code' />
             </a>
@@ -81,7 +87,7 @@ function NavigationList({ toggleTheme }: Props) {
   const renderMenuIcon = () => {
     return (
       <MenuContainer>
-        <HoverIcon onClick={() => setIsOpen(!isOpen)} size='large' icon='menu' />
+        <HoverIcon onClick={toggleOpen} size='large' icon='menu' />
       </MenuContainer>
     );
   };
@@ -89,22 +95,24 @@ function NavigationList({ toggleTheme }: Props) {
   return (
     <>
       {renderDrawer()}
-      {renderMenuIcon()}
+      {!isOpen && renderMenuIcon()}
     </>
   );
 }
 
 interface State {
   isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
+  toggleOpen: () => void;
 }
 
 const NavigationListState = (): State => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleOpen = () => setIsOpen(!isOpen);
+
   return {
     isOpen,
-    setIsOpen
+    toggleOpen,
   };
 };
 
