@@ -11,10 +11,17 @@ import { connect } from 'react-redux';
 import { toggleTheme as toggleThemeAction } from '../actions';
 
 const MenuContainer = styled.div`
-  position: fixed;
-  margin: ${styles.m4};
-  cursor: pointer;
+  position: sticky;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 ${styles.m4};
   z-index: 10;
+
+  // background-color: ${({ theme}: TTP) => theme.color0};
+  background: transparent;
 `;
 
 const Container = styled.div`
@@ -22,6 +29,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
@@ -31,12 +39,15 @@ const Container = styled.div`
 
 const LinksContainer = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  padding: ${styles.m1} 0;
 `;
 
 const Seperator = styled.div`
-  margin: ${styles.m4} auto;
+  margin: ${styles.m4} 0;
+  align-self: center;
 `;
 
 function NavigationList({ toggleTheme }: Props) {
@@ -57,10 +68,10 @@ function NavigationList({ toggleTheme }: Props) {
           {/* <NavigationMenuContainer> */}
             <HoverIcon onClick={toggleOpen} size='large' icon='menu_open'/>
           {/* </NavigationMenuContainer> */}
-          <Seperator>
-            <Diamond />
-          </Seperator>
           <LinksContainer>
+            <Seperator>
+              <Diamond />
+            </Seperator>
             <Link to='/'>
               <NavigationEntry text='Home' icon='home' onClick={toggleOpen} />
             </Link>
@@ -83,10 +94,10 @@ function NavigationList({ toggleTheme }: Props) {
     );
   };
 
-  const renderMenuIcon = () => {
+  const renderNavBar = () => {
     return (
       <MenuContainer>
-        <HoverIcon onClick={toggleOpen} size='large' icon='menu' />
+        {!isOpen && <HoverIcon onClick={toggleOpen} size='large' icon='menu' />}
       </MenuContainer>
     );
   };
@@ -94,7 +105,7 @@ function NavigationList({ toggleTheme }: Props) {
   return (
     <>
       {renderDrawer()}
-      {!isOpen && renderMenuIcon()}
+      {renderNavBar()}
     </>
   );
 }

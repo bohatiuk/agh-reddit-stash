@@ -44,20 +44,24 @@ const distances = {
 
 const params = {
   transitionParams: '280ms ease-out',
+  transitionParams1: '140ms ease-out',
 };
 
 const fonts = {
-  fontN1: '12px Roboto',
-  fontN2: '14px Roboto',
-  fontN3: '16px Roboto',
-  fontN4: '18px Roboto',
-  fontN5: '20px Roboto',
+  fontN1: '200 12px Roboto',
+  fontN2: '200 14px Roboto',
+  fontN3: '200 16px Roboto',
+  fontN4: '200 18px Roboto',
+  fontN5: '200 20px Roboto',
+  fontN6: '200 24px Roboto',
+  fontN7: '200 28px Roboto',
+  fontN8: '200 32px Roboto',
 
-  fontH1: '72px Roboto',
-  fontH2: '56px Roboto',
-  fontH3: '48px Roboto',
-  fontH4: '42px Roboto',
-  fontH5: '36px Roboto',
+  fontH1: '200 72px Roboto',
+  fontH2: '200 56px Roboto',
+  fontH3: '200 48px Roboto',
+  fontH4: '200 42px Roboto',
+  fontH5: '200 36px Roboto',
 };
 
 export const styles = {
