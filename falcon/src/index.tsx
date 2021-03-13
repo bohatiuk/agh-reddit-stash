@@ -15,6 +15,8 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Dashboard from './containers/Dashboard';
 import { connect } from 'react-redux';
 import { TTP } from './styles/styleguide';
+import { About } from './containers/About';
+import Home from './containers/Home';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -40,7 +42,13 @@ function MainComponent({ theme }: Props) {
         <NavigationList />
         <Switch>
           <Route path='/' exact>
+            <Home />
+          </Route>
+          <Route path='/dashboard' exact>
             <Dashboard />
+          </Route>
+          <Route path='/about' exact>
+            <About />
           </Route>
         </Switch>
       </ThemeProvider>
@@ -50,8 +58,7 @@ function MainComponent({ theme }: Props) {
 
 function mapStateToProps(state: GlobalState) {
   return {
-    theme: state.style.theme,
-    xx: state.style.themeType
+    theme: state.style.theme
   };
 }
 type Props = ReturnType<typeof mapStateToProps>;

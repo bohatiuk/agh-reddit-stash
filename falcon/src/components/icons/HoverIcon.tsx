@@ -1,7 +1,7 @@
 import { Icon } from '@material-ui/core';
 import styled from 'styled-components';
 import React from 'react';
-import { TTP } from '../styles/styleguide';
+import { TTP } from '../../styles/styleguide';
 
 const Hover = styled.div`
   transition: color ${({ theme }: TTP) => theme.transitionParams};

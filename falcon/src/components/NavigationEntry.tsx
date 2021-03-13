@@ -25,14 +25,14 @@ const Text = styled.span`
   margin-left: ${styles.m2};
 `;
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
   icon: string;
 }
-function NavigationEntry({ text, icon }: Props) {
+function NavigationEntry({ text, icon, ...rest }: Props) {
   return (
     <HoverBorder>
-      <NavEntryDiv>
+      <NavEntryDiv {...rest}>
         <CenterDiv>
           <Icon>{icon}</Icon>
           <Text>{text}</Text>
