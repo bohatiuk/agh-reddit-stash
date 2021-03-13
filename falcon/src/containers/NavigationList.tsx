@@ -9,7 +9,6 @@ import HoverIcon from '../components/icons/HoverIcon';
 import { Diamond, Dot } from '../common/Shape';
 import { connect } from 'react-redux';
 import { toggleTheme as toggleThemeAction } from '../actions';
-import './NavigationList.css';
 
 const MenuContainer = styled.div`
   position: fixed;
@@ -26,8 +25,8 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${({ theme }: TTP) => `rgba(${theme.colorBG2RGB}, 0.3)`};
-  color:  ${({ theme }: TTP) => theme.colorText1};
+  background-color: ${({ theme }: TTP) => `rgba(${theme.colorGray0RGB}, 1)`};
+  color:  ${({ theme }: TTP) => theme.color8};
 `;
 
 const LinksContainer = styled.div`
@@ -75,7 +74,7 @@ function NavigationList({ toggleTheme }: Props) {
               <NavigationEntry text='About' icon='fingerprint' onClick={toggleOpen} />
             </Link>
             <a href={config.documentationURL} target='_blank' rel='noreferrer'>
-              <NavigationEntry text='Documentation' icon='code' />
+              <NavigationEntry text='Documentation' icon='code' onClick={toggleOpen} />
             </a>
           </LinksContainer>
           <HoverIcon onClick={toggleTheme} size='large' icon='invert_colors'/>

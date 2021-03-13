@@ -8,7 +8,7 @@ export const HoverBorder = styled.div`
     height: 1px;
     margin: 1px;
     display: block;
-    background-color: ${({ theme }: TTP) => theme.colorG3};
+    background-color: ${({ theme }: TTP) => theme.color5};
     transition: width ${({ theme }: TTP) => theme.transitionParams};
 
   }

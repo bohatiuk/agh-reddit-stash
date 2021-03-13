@@ -22,15 +22,19 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const Global = createGlobalStyle`
   body {
-    text-align: center:
+    text-align: center;
     font-family: Roboto, Arial, Helvetica, sans-serif;
 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 
-    color: ${({ theme }: TTP) => theme.colorText1};
-    background-color: ${({ theme }: TTP) => theme.colorBG1};
+    color: ${({ theme }: TTP) => theme.color8};
+    background-color: ${({ theme }: TTP) => theme.color0};
+  }
+
+  .drawer-bg {
+    background-color: rgba(${({ theme }: TTP) => theme.color0RGB}, 0.0) !important;
   }
 `;
 

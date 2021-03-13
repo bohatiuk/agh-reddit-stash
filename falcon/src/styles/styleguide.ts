@@ -1,65 +1,36 @@
-import { hexToRgbString } from '../utils/css';
-
-const colorBase = {
-  colorG1: '#84cf97',
-  colorG2: '#59b598',
-  colorG3: '#3a9a93',
-  colorG4: '#2d7e86',
-  colorG5: '#2e6272',
-  colorG6: '#2f4858',
-};
+import { hexToRgbString, parseToRgb } from '../utils/css';
 
 const darkColors = {
-  ...colorBase,
-  colorBG1: '#181818',
-  colorBG2: '#313131',
-  colorBG3: '#909090',
-
-  colorText1: '#F8F8F8',
-  colorText2: '#E0E0E0',
-  colorText3: '#D0D0D0',
+  color0: '#1c2b30',
+  color1: '#1f3d43',
+  color2: '#28727b',
+  color3: '#408d8a',
+  color4: '#57a899',
+  color5: '#6fc3a8',
+  color6: '#86deb7',
+  color7: '#f0fbf6',
+  color8: '#ffffff',
+  colorGray1: '#f3f3f3',
+  colorGray0: '#3f3f3f',
 };
 
 const lightColors = {
-  ...colorBase,
-  colorText1: '#181818',
-  colorText2: '#606060',
-  colorText3: '#909090',
-
-  colorBG1: '#F0F0F0',
-  colorBG2: '#E0E0E0',
-  colorBG3: '#B0B0B0',
+  color8: '#1c2b30',
+  color7: '#1f3d43',
+  color6: '#28727b',
+  color5: '#408d8a',
+  color4: '#57a899',
+  color3: '#6fc3a8',
+  color2: '#86deb7',
+  color1: '#f0fbf6',
+  color0: '#ffffff',
+  colorGray0: '#f3f3f3',
+  colorGray1: '#3f3f3f',
 };
 
-export const darkColorsRGB = {
-  colorG1RGB: hexToRgbString(darkColors.colorG1),
-  colorG2RGB: hexToRgbString(darkColors.colorG2),
-  colorG3RGB: hexToRgbString(darkColors.colorG3),
-  colorG4RGB: hexToRgbString(darkColors.colorG4),
-  colorG5RGB: hexToRgbString(darkColors.colorG5),
-  colorG6RGB: hexToRgbString(darkColors.colorG6),
-  colorText1RGB: hexToRgbString(darkColors.colorText1),
-  colorText2RGB: hexToRgbString(darkColors.colorText2),
-  colorText3RGB: hexToRgbString(darkColors.colorText3),
-  colorBG1RGB: hexToRgbString(darkColors.colorBG1),
-  colorBG2RGB: hexToRgbString(darkColors.colorBG2),
-  colorBG3RGB: hexToRgbString(darkColors.colorBG3),
-};
+export const darkColorsRGB = parseToRgb(darkColors);
 
-export const lightColorsRGB = {
-  colorG1RGB: hexToRgbString(lightColors.colorG1),
-  colorG2RGB: hexToRgbString(lightColors.colorG2),
-  colorG3RGB: hexToRgbString(lightColors.colorG3),
-  colorG4RGB: hexToRgbString(lightColors.colorG4),
-  colorG5RGB: hexToRgbString(lightColors.colorG5),
-  colorG6RGB: hexToRgbString(lightColors.colorG6),
-  colorText1RGB: hexToRgbString(lightColors.colorText1),
-  colorText2RGB: hexToRgbString(lightColors.colorText2),
-  colorText3RGB: hexToRgbString(lightColors.colorText3),
-  colorBG1RGB: hexToRgbString(lightColors.colorBG1),
-  colorBG2RGB: hexToRgbString(lightColors.colorBG2),
-  colorBG3RGB: hexToRgbString(lightColors.colorBG3),
-};
+export const lightColorsRGB = parseToRgb(lightColors);
 
 const distances = {
   defaultRadius: '4px',
@@ -108,7 +79,22 @@ export const lightTheme = {
   ...lightColorsRGB,
 };
 
+export type ColorsRGB = {
+  color0RGB: string;
+  color1RGB: string;
+  color2RGB: string;
+  color3RGB: string;
+  color4RGB: string;
+  color5RGB: string;
+  color6RGB: string;
+  color7RGB: string;
+  color8RGB: string;
+  colorGray1RGB: string;
+  colorGray0RGB: string;
+};
+
 export type Theme = typeof lightTheme;
+
 export type TTP = {
   theme: Theme;
 };
