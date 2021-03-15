@@ -1,25 +1,16 @@
-import { Icon } from '@material-ui/core';
 import styled from 'styled-components';
 import React from 'react';
-import { styles, TTP } from '../../styles/styleguide';
+import { TTP } from '../../styles/styleguide';
 import { ReactSVG } from 'react-svg';
 import { CenterDiv } from '../../common/CenterDiv';
 
 const Container = styled(CenterDiv)`
-  width: 480px;
-  height: 480px;
+  width: 360px;
   font-size: 72px;
-  background-color: ${({ theme }: TTP) => theme.colorG5};
-  padding: ${styles.m5};
-  border-radius: 45px;
 
   & svg {
-    fill: ${({ theme }: TTP) => theme.colorText1};
+    fill: ${({ theme }: TTP) => theme.color0};
   }
-
-  -webkit-box-shadow: 10px 10px 20px 0px rgba(${({ theme }: TTP) => theme.colorText1RGB},0.6);
-  -moz-box-shadow: 10px 10px 20px 0px rgba(${({ theme }: TTP) => theme.colorText1RGB},0.6);
-  box-shadow: 10px 10px 20px 0px rgba(${({ theme }: TTP) => theme.colorText1RGB},0.6);
 `;
 
 function HoverIcon() {

@@ -1,49 +1,138 @@
+import { Icon } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { CallToActionBtn, CallToActionOutlinedBtn } from '../common/Buttons';
 import Twitter from '../components/icons/Twitter';
-import { styles } from '../styles/styleguide';
+import { config } from '../config';
+import { styles, TTP } from '../styles/styleguide';
 
 const Container = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-`;
-
-const Background = styled.div`
-  // background-image: url(https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=667&q=80);
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-  height: 100%;
   width: 100%;
-
-  // filter: blur(8px);
-  // -webkit-filter: blur(8px);
+  height: 100%;
+  overflow: hidden;
 `;
 
 const Overlay = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  margin: 90px 0 0 20%;
 `;
 
-const Header = styled.p`
-  font: ${styles.fontH1};
+const BannerContainer = styled.div`
+  position: relative;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  background-color: ${({ theme}: TTP) => theme.color1};
+`;
+
+const Actions = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 90px;
+`;
+
+const TextTitle = styled.div`
+  margin-top: 92px;
+  font: ${styles.fontH5};
+  color: ${({ theme }: TTP) => theme.color5};
+`;
+
+const TestDescribtion = styled.div`
+  margin-top: 12px;
+  font: ${styles.fontN6};
+`;
+
+const GetStartedActions = styled.div`
+  margin-top: 64px;
+  display: flex;
+
+  & * {
+    margin-right: ${styles.m5};
+  }
+`;
+
+const ContentContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
+
+const CardsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: ${styles.M2};
+  text-align: left;
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 240px;
+`;
+
+const CardTitle = styled.div`
+  font: ${styles.fontN7};
+  color: ${({ theme }: TTP) => theme.color2};
+  margin-bottom: ${styles.m4};
+`;
+
+const CardDescribtion = styled.div`
+  font: ${styles.fontN5};
 `;
 
 function Home() {
   return (
     <Container>
-      <Background />
-      <Overlay>
-        <Twitter />
-      </Overlay>
+      <BannerContainer>
+        <Overlay>
+          <Twitter />
+        </Overlay>
+        <Actions>
+          <TextTitle>
+            TWITTER STASH
+          </TextTitle>
+          <TestDescribtion>
+            An application doing sth
+          </TestDescribtion>
+          <GetStartedActions>
+            <Link to='/dashboard'>
+              <CallToActionBtn>Get started</CallToActionBtn>
+            </Link>
+            <a href={config.documentationURL} target='_blank' rel='noreferrer'>
+              <CallToActionOutlinedBtn>
+                <span>
+                  Read docs
+                </span>
+                <Icon>
+                  keyboard_arrow_right
+                </Icon>
+              </CallToActionOutlinedBtn>
+            </a>
+          </GetStartedActions>
+        </Actions>
+      </BannerContainer>
+      <ContentContainer>
+        <CardsContainer>
+          <Card>
+            <CardTitle>Something</CardTitle>
+            <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+          </Card>
+          <Card>
+            <CardTitle>Something</CardTitle>
+            <CardDescribtion> you open it directly in the browser, you will see an empty page.
+              sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+          </Card>
+          <Card>
+            <CardTitle>Something</CardTitle>
+            <CardDescribtion>Lorem ipsum  you open it directly in the browser, you will
+              see an empty page. dolor sit am.</CardDescribtion>
+          </Card>
+        </CardsContainer>
+      </ContentContainer>
     </Container>
   );
 }
