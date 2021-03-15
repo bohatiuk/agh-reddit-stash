@@ -6,7 +6,7 @@ import { styles, TTP } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
 import HoverIcon from '../components/icons/HoverIcon';
-import { Diamond, Dot } from '../common/Shape';
+import { Diamond } from '../common/Shape';
 import { connect } from 'react-redux';
 import { toggleTheme as toggleThemeAction } from '../actions';
 
@@ -17,11 +17,14 @@ const MenuContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0 ${styles.m4};
+
   z-index: 10;
 
-  // background-color: ${({ theme}: TTP) => theme.color0};
   background: transparent;
+`;
+
+const MenuIcon = styled.div`
+  padding: 0 ${styles.m4};
 `;
 
 const Container = styled.div`
@@ -65,9 +68,7 @@ function NavigationList({ toggleTheme }: Props) {
         classes={{paper: 'drawer-bg'}}
       >
         <Container>
-          {/* <NavigationMenuContainer> */}
-            <HoverIcon onClick={toggleOpen} size='large' icon='menu_open'/>
-          {/* </NavigationMenuContainer> */}
+          <HoverIcon onClick={toggleOpen} size='large' icon='menu_open'/>
           <LinksContainer>
             <Seperator>
               <Diamond />
@@ -76,7 +77,7 @@ function NavigationList({ toggleTheme }: Props) {
               <NavigationEntry text='Home' icon='home' onClick={toggleOpen} />
             </Link>
             <Link to='/dashboard'>
-              <NavigationEntry text='Dashbard' icon='select_all' onClick={toggleOpen} />
+              <NavigationEntry text='Dashboard' icon='select_all' onClick={toggleOpen} />
             </Link>
             <Seperator>
               <Diamond />
@@ -97,7 +98,11 @@ function NavigationList({ toggleTheme }: Props) {
   const renderNavBar = () => {
     return (
       <MenuContainer>
-        {!isOpen && <HoverIcon onClick={toggleOpen} size='large' icon='menu' />}
+        {!isOpen && (
+          <MenuIcon>
+            <HoverIcon onClick={toggleOpen} size='large' icon='menu' />
+          </MenuIcon>
+        )}
       </MenuContainer>
     );
   };

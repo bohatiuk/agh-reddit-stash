@@ -9,8 +9,8 @@ export interface State {
   theme: Theme;
 }
 const initialState: State = {
-  themeType: ThemeTypes.Light,
-  theme: lightTheme
+  themeType: ThemeTypes.Dark,
+  theme: darkTheme
 };
 
 export function styleReducer(state = initialState, action: StyleActions) {

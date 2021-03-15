@@ -1,29 +1,29 @@
-import { hexToRgbString, parseToRgb } from '../utils/css';
+import { parseToRgb } from '../utils/css';
 
 const darkColors = {
-  color0: '#1c2b30',
-  color1: '#1f3d43',
-  color2: '#28727b',
-  color3: '#408d8a',
+  color0: '#1f1f1f',
+  color1: '#3f3f3f',
+  color2: '#5f5f5f',
+  color3: '#7f7f7f',
   color4: '#57a899',
   color5: '#6fc3a8',
   color6: '#86deb7',
-  color7: '#f0fbf6',
-  color8: '#ffffff',
+  color7: '#e1e1e1',
+  color8: '#fafafa',
   colorGray1: '#f3f3f3',
   colorGray0: '#3f3f3f',
 };
 
 const lightColors = {
-  color8: '#1c2b30',
-  color7: '#1f3d43',
-  color6: '#28727b',
+  color8: '#1f1f1f',
+  color7: '#3f3f3f',
+  color6: '#5f5f5f',
   color5: '#408d8a',
   color4: '#57a899',
   color3: '#6fc3a8',
   color2: '#86deb7',
-  color1: '#f0fbf6',
-  color0: '#ffffff',
+  color1: '#e1e1e1',
+  color0: '#fafafa',
   colorGray0: '#f3f3f3',
   colorGray1: '#3f3f3f',
 };
@@ -40,6 +40,9 @@ const distances = {
   m3: '15px',
   m4: '20px',
   m5: '25px',
+  M1: '50px',
+  M2: '75px',
+  M3: '100px',
 };
 
 const params = {

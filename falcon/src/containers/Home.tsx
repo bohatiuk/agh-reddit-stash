@@ -1,128 +1,107 @@
 import { Icon } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CallToActionBtn, CallToActionOutlinedBtn } from '../common/Buttons';
-import { CenterDiv } from '../common/CenterDiv';
 import Twitter from '../components/icons/Twitter';
 import { config } from '../config';
 import { styles, TTP } from '../styles/styleguide';
-import { defaultShadow } from '../utils/css';
 
 const Container = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-`;
-
-const Background = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  background-color: ${({ theme }: TTP) => theme.color0};
-  opacity: 0.8;
-
+  overflow: hidden;
 `;
 
 const Overlay = styled.div`
-  position: absolute;
-  left: 20vw;
-  top: 90px;
-  z-index: 1;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
+  margin: 90px 0 0 20%;
 `;
 
-const ContentContainer = styled.div`
+const BannerContainer = styled.div`
   position: relative;
-  // margin: 10vh auto 0;
   height: 400px;
   width: 100%;
   overflow: hidden;
-  padding-left: 45vw;
-  background-color: ${({ theme}: TTP) => theme.color0};
-  // background: transparent;
-  // background-color: ${({ theme }: TTP) => theme.colorGray0};
-
-
-  // -webkit-box-shadow: -10px -10px 200px 0px rgba(${({ theme }: TTP) => theme.color8RGB},0.2);
-  // -moz-box-shadow: -10px -10px 200px 0px rgba(${({ theme }: TTP) => theme.color8RGB},0.2);
-  // box-shadow: -10px -10px 200px 0px rgba(${({ theme }: TTP) => theme.color8RGB},0.2);
+  display: flex;
+  justify-content: flex-start;
+  background-color: ${({ theme}: TTP) => theme.color1};
 `;
 
-const Cards = styled.div`
+const Actions = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 90px;
 `;
 
-const Card = styled(CenterDiv)`
-  width: 450px;
-  height: 225px;
-  position: absolute;
-  background-color: ${({ theme }: TTP) => theme.color0};
-  border: 1px solid rgba(${({ theme }: TTP) => theme.color8RGB}, 0.2);
-  ${props => defaultShadow(props)}
-`;
-
-const NameCard = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 0;
+const TextTitle = styled.div`
+  margin-top: 92px;
   font: ${styles.fontH5};
   color: ${({ theme }: TTP) => theme.color5};
 `;
 
-const DescCard = styled.div`
-  position: absolute;
-  top: 125px;
-  left: 0;
+const TestDescribtion = styled.div`
+  margin-top: 12px;
   font: ${styles.fontN6};
 `;
 
-const GetStartedCard = styled.div`
-  position: absolute;
-  top: 230px;
-  left: 0;
+const GetStartedActions = styled.div`
+  margin-top: 64px;
   display: flex;
-  // cursor: pointer;
-  // transition: transform ${styles.transitionParams1};
-  // background: ${({ theme }: TTP) => theme.color5};
-  // color: ${({ theme }: TTP) => theme.color0};
 
-  // &:hover {
-  //   transform: scale(1.02);
-  // }
   & * {
     margin-right: ${styles.m5};
   }
 `;
 
-const Title = styled.p`
-  font: ${styles.fontH5};
+const ContentContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
+
+const CardsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: ${styles.M2};
+  text-align: left;
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 240px;
+`;
+
+const CardTitle = styled.div`
+  font: ${styles.fontN7};
+  color: ${({ theme }: TTP) => theme.color2};
+  margin-bottom: ${styles.m4};
+`;
+
+const CardDescribtion = styled.div`
+  font: ${styles.fontN5};
 `;
 
 function Home() {
   return (
     <Container>
-      {/* <Background /> */}
-      <ContentContainer>
+      <BannerContainer>
         <Overlay>
           <Twitter />
         </Overlay>
-        <Cards>
-          <NameCard>
+        <Actions>
+          <TextTitle>
             TWITTER STASH
-          </NameCard>
-          <DescCard>
+          </TextTitle>
+          <TestDescribtion>
             An application doing sth
-          </DescCard>
-          <GetStartedCard>
-            <CallToActionBtn>Get started</CallToActionBtn>
+          </TestDescribtion>
+          <GetStartedActions>
+            <Link to='/dashboard'>
+              <CallToActionBtn>Get started</CallToActionBtn>
+            </Link>
             <a href={config.documentationURL} target='_blank' rel='noreferrer'>
               <CallToActionOutlinedBtn>
                 <span>
@@ -133,8 +112,26 @@ function Home() {
                 </Icon>
               </CallToActionOutlinedBtn>
             </a>
-          </GetStartedCard>
-        </Cards>
+          </GetStartedActions>
+        </Actions>
+      </BannerContainer>
+      <ContentContainer>
+        <CardsContainer>
+          <Card>
+            <CardTitle>Something</CardTitle>
+            <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+          </Card>
+          <Card>
+            <CardTitle>Something</CardTitle>
+            <CardDescribtion> you open it directly in the browser, you will see an empty page.
+              sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+          </Card>
+          <Card>
+            <CardTitle>Something</CardTitle>
+            <CardDescribtion>Lorem ipsum  you open it directly in the browser, you will
+              see an empty page. dolor sit am.</CardDescribtion>
+          </Card>
+        </CardsContainer>
       </ContentContainer>
     </Container>
   );

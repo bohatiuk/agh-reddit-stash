@@ -46,8 +46,7 @@ const Background = styled.div`
   height: 100%;
   z-index: -1;
   background-color: ${({ theme }: TTP) => theme.color5};
-  opacity: 0.2;
-  background-image: radial-gradient(${({ theme }: TTP) => theme.color8} 1px, ${({ theme }: TTP) => theme.color2} 1px);
+  background-color: ${({ theme }: TTP) => theme.color0};
   background-size: 20px 20px;
 `;
 

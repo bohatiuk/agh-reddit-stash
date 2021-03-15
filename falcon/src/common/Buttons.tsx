@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { styles, TTP } from '../styles/styleguide';
-import { smallShadow } from '../utils/css';
 import { CenterDiv } from './CenterDiv';
 
 export const CallToActionBtn = styled(CenterDiv)`
