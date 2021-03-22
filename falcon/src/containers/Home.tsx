@@ -24,7 +24,7 @@ const BannerContainer = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: flex-start;
-  background-color: ${({ theme}: TTP) => theme.color1};
+  background-color: ${({ theme}: TTP) => theme.colorBG3};
 `;
 
 const Actions = styled.div`
@@ -38,7 +38,7 @@ const Actions = styled.div`
 const TextTitle = styled.div`
   margin-top: 92px;
   font: ${styles.fontH5};
-  color: ${({ theme }: TTP) => theme.color5};
+  color: ${({ theme }: TTP) => theme.colorP1};
 `;
 
 const TestDescribtion = styled.div`
@@ -76,7 +76,6 @@ const Card = styled.div`
 
 const CardTitle = styled.div`
   font: ${styles.fontN7};
-  color: ${({ theme }: TTP) => theme.color2};
   margin-bottom: ${styles.m4};
 `;
 

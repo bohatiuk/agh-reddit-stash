@@ -6,8 +6,9 @@ import { TTP } from '../../styles/styleguide';
 const Hover = styled.div`
   transition: color ${({ theme }: TTP) => theme.transitionParams};
   cursor: pointer;
+  color: ${({ theme }: TTP) => `rgba(${theme.colorP1RGB}, 0.7)`};
   &:hover {
-    color: ${({ theme }: TTP) => theme.color5};
+    color: ${({ theme }: TTP) => theme.colorP1};
   }
 `;
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

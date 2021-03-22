@@ -9,7 +9,7 @@ const Container = styled(CenterDiv)`
   font-size: 72px;
 
   & svg {
-    fill: ${({ theme }: TTP) => theme.color0};
+    fill: ${({ theme }: TTP) => theme.colorBG0};
   }
 `;
 

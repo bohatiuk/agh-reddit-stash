@@ -16,7 +16,7 @@ const NavEntryDiv = styled.div`
   margin-left: ${({ theme }: TTP) => theme.m2};
 
   &:hover {
-    color: ${({ theme }: TTP) => theme.color4};
+    color: ${({ theme }: TTP) => theme.colorP1};
     margin-left: ${styles.m3};
   }
 `;

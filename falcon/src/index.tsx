@@ -30,11 +30,11 @@ const Global = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
 
-    color: ${({ theme }: TTP) => theme.color8};
+    color: ${({ theme }: TTP) => theme.colorText};
   }
 
   .drawer-bg {
-    background-color: rgba(${({ theme }: TTP) => theme.color0RGB}, 0.0) !important;
+    background-color: rgba(${({ theme }: TTP) => theme.colorBG1RGB}, 0.0) !important;
   }
 `;
 
@@ -45,8 +45,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-color: ${({ theme }: TTP) => theme.color5};
-  background-color: ${({ theme }: TTP) => theme.color0};
+  background-color: ${({ theme }: TTP) => theme.colorBG0};
   background-size: 20px 20px;
 `;
 

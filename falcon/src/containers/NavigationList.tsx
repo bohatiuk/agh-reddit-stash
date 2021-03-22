@@ -12,15 +12,15 @@ import { toggleTheme as toggleThemeAction } from '../actions';
 
 const MenuContainer = styled.div`
   position: sticky;
+  z-index: 50;
   width: 100%;
   height: 70px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 
-  z-index: 10;
-
-  background: transparent;
+  background-color: ${({ theme }: TTP) => theme.colorBG1};
+  box-shadow: ${({ theme }: TTP) => theme.shadow};
 `;
 
 const MenuIcon = styled.div`
@@ -36,8 +36,8 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${({ theme }: TTP) => `rgba(${theme.colorGray0RGB}, 1)`};
-  color:  ${({ theme }: TTP) => theme.color8};
+  background-color: ${({ theme }: TTP) => `rgba(${theme.colorBG0RGB}, 1)`};
+  color:  ${({ theme }: TTP) => theme.colorText};
 `;
 
 const LinksContainer = styled.div`

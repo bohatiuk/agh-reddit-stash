@@ -7,17 +7,17 @@ export const CallToActionBtn = styled(CenterDiv)`
   height: 50px;
   cursor: pointer;
   font: ${styles.fontN4};
-  color: ${({ theme }: TTP) => theme.color8};
-  background-color: ${({ theme }: TTP) => theme.color4};
+  color: ${({ theme }: TTP) => theme.colorText};
+  background-color: ${({ theme }: TTP) => `rgba(${theme.colorP1RGB}, 0.7)`};
   transition: all ${styles.transitionParams};
   &:hover {
-    background-color: ${({ theme }: TTP) => theme.color6};
-    color: ${({ theme }: TTP) => theme.color0};
+    background-color: ${({ theme }: TTP) => theme.colorP1};
+    color: ${({ theme }: TTP) => theme.colorTextN};
 
   }
 `;
 
 export const CallToActionOutlinedBtn = styled(CallToActionBtn)`
   background: transparent;
-  border: 1px solid ${({ theme }: TTP) => theme.color4};
+  border: 1px solid ${({ theme }: TTP) => `rgba(${theme.colorP1RGB}, 0.7)`};
 `;
