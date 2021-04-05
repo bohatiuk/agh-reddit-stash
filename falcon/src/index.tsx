@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {
@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { TTP } from './styles/styleguide';
 import { About } from './containers/About';
 import Home from './containers/Home';
+import { loadTweets as loadTweetsAction } from './actions';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -30,6 +31,7 @@ const Global = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
 
+    background-color: ${({ theme }: TTP) => theme.colorBG0};
     color: ${({ theme }: TTP) => theme.colorText};
   }
 
@@ -49,7 +51,11 @@ const Background = styled.div`
   background-size: 20px 20px;
 `;
 
-function MainComponent({ theme }: Props) {
+function MainComponent({ theme, loadTweets }: Props) {
+  useEffect(() => {
+    loadTweets();
+  }, [loadTweets]);
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -72,14 +78,21 @@ function MainComponent({ theme }: Props) {
   );
 }
 
+const mapDispatchToProps: Dispatch = {
+  loadTweets: loadTweetsAction
+};
+type Dispatch = {
+  loadTweets(): void;
+};
+
 function mapStateToProps(state: GlobalState) {
   return {
     theme: state.style.theme
   };
 }
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const Main = connect(mapStateToProps)(MainComponent);
+const Main = connect(mapStateToProps, mapDispatchToProps)(MainComponent);
 
 ReactDOM.render(
   <Provider store={store}>

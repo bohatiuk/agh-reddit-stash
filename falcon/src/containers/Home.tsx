@@ -1,4 +1,4 @@
-import { Icon } from '@material-ui/core';
+import { Grow, Icon } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -116,20 +116,26 @@ function Home() {
       </BannerContainer>
       <ContentContainer>
         <CardsContainer>
-          <Card>
-            <CardTitle>Something</CardTitle>
-            <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
-          </Card>
+          <Grow in appear timeout={500}>
+            <Card>
+              <CardTitle>Something</CardTitle>
+              <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+            </Card>
+          </Grow>
+          <Grow in appear timeout={1200}>
           <Card>
             <CardTitle>Something</CardTitle>
             <CardDescribtion> you open it directly in the browser, you will see an empty page.
               sit am. Lorem ipsum dolor sit am.</CardDescribtion>
           </Card>
+          </Grow>
+          <Grow in appear timeout={1500}>
           <Card>
             <CardTitle>Something</CardTitle>
             <CardDescribtion>Lorem ipsum  you open it directly in the browser, you will
               see an empty page. dolor sit am.</CardDescribtion>
           </Card>
+          </Grow>
         </CardsContainer>
       </ContentContainer>
     </Container>

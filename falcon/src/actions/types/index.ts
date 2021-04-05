@@ -1,4 +1,6 @@
 
 export enum ActionType {
-  StyleChangeTheme = 'StyleChangeTheme'
+  StyleChangeTheme = 'StyleChangeTheme',
+
+  TweetLoad = 'TweetLoad'
 }

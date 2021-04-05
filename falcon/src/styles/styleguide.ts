@@ -5,9 +5,9 @@ const darkColors = {
   colorBG1: '#181818',
   colorBG2: '#242424',
   colorBG3: '#363636',
-  colorP1: '#CDE650',
-  colorP2: '#B15CE6',
-  colorGray0: '#f3f3f3',
+  colorP1: '#B15CE6',
+  colorP2: '#CDE650',
+  colorGray0: '#363636',
   colorGray1: '#3f3f3f',
   colorText: '#f3f3f3',
   colorTextN: '#121212',
@@ -19,15 +19,15 @@ const lightColors = {
   colorBG1: '#f3f3f3',
   colorBG2: '#f3f3f3',
   colorBG3: '#d2d2d2',
-  colorP1: '#ADCC14',
-  colorP2: '#6E00B3',
-  colorGray0: '#f3f3f3',
+  colorP1: '#6E00B3',
+  colorP2: '#ADCC14',
+  colorGray0: '#363636',
   colorGray1: '#3f3f3f',
   colorText: '#121212',
   colorTextN: '#f3f3f3',
-  shadow: `-webkit-box-shadow: 4px 1px 16px 0px rgba(18,18,18,0.6);
-  -moz-box-shadow: 4px 1px 16px 0px rgba(18,18,18,0.6);
-  box-shadow: 4px 1px 16px 0px rgba(18,18,18,0.6);`
+  shadow: `-webkit-box-shadow: 4px 4px 8px 1px rgba(18,18,18,0.4);
+  -moz-box-shadow: 4px 4px 8px 1px rgba(18,18,18,0.4);
+  box-shadow: 4px 4px 8px 1px rgba(18,18,18,0.4);`
 };
 
 export const darkColorsRGB = parseToRgb(darkColors);
