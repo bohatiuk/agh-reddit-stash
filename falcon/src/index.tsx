@@ -37,6 +37,10 @@ const Global = createGlobalStyle`
   .drawer-bg {
     background-color: rgba(${t => t.theme.colorBG1RGB}, 0.0) !important;
   }
+
+  .MuiPickersToolbar-toolbar, .MuiPickersDay-daySelected {
+    background-color: ${t => t.theme.colorP1} !important;
+  }
 `;
 
 const Background = styled.div`

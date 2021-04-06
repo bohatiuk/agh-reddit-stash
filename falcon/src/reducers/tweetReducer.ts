@@ -20,10 +20,10 @@ export function tweetReducer(state = initialState, action: TAction): State {
     return { ...state, tweets: action.payload };
   }
   else if (SetLowerDateBound.isActionOfType(action)) {
-    return { ...state, lowerDateBound: action.payload };
+    return { ...state, lowerDateBound: action.payload ? action.payload.startOf('day') : null };
   }
   else if (SetUpperDateBound.isActionOfType(action)) {
-    return { ...state, upperDateBound: action.payload };
+    return { ...state, upperDateBound: action.payload ? action.payload.startOf('day') : null };
   }
 
   return state;

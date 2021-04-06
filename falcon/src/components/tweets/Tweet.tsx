@@ -34,12 +34,23 @@ const Flex = styled.div`
   justify-content: flex-start;
 `;
 const Image = styled.div`
+  position: relative;
   width: 220px;
   min-width: 220px;
   height: 125px;
   min-height: 125px;
-  background: gray;
   border-radius: ${styles.defaultRadius};
+  
+  &:before {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    filter: blur(2px) saturate(100%) contrast(45%) brightness(130%);
+    background-color: rgba(255,255,255,0.3);
+  }
 `;
 const Content = styled.div`
   max-width: 60%;

@@ -22,12 +22,12 @@ function mapStateToProps(state: GlobalState) {
     ? state.tweets.tweets.filter(tweet => state.tweets.lowerDateBound?.isSameOrBefore(moment(tweet.timestamp).startOf('day')))
     : state.tweets.tweets;
 
-  const filteredUpper = state.tweets.upperDateBound
+  const filtered = state.tweets.upperDateBound
     ? filteredLower.filter(tweet => state.tweets.upperDateBound?.isSameOrAfter(moment(tweet.timestamp).startOf('day')))
     : filteredLower;
 
   return {
-    tweets: filteredUpper
+    tweets: filtered
   };
 }
 type Props = ReturnType<typeof mapStateToProps> & {
