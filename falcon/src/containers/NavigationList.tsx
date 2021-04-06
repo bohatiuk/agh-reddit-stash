@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Drawer } from '@material-ui/core';
 import NavigationEntry from '../components/NavigationEntry';
 import styled from 'styled-components';
-import { styles, TTP } from '../styles/styleguide';
+import { styles } from '../styles/styleguide';
 import { Link } from 'react-router-dom';
 import { config } from '../config';
 import HoverIcon from '../components/icons/HoverIcon';
 import { Diamond } from '../common/Shape';
 import { connect } from 'react-redux';
-import { toggleTheme as toggleThemeAction } from '../actions';
+import { ToggleThemeAction } from '../actions';
 
 const MenuContainer = styled.div`
   position: sticky;
@@ -19,8 +19,8 @@ const MenuContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${({ theme }: TTP) => theme.colorBG1};
-  box-shadow: ${({ theme }: TTP) => theme.shadow};
+  background-color: ${t => t.theme.colorBG1};
+  box-shadow: ${t => t.theme.shadow};
 `;
 
 const MenuIcon = styled.div`
@@ -36,8 +36,8 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${({ theme }: TTP) => `rgba(${theme.colorBG0RGB}, 1)`};
-  color:  ${({ theme }: TTP) => theme.colorText};
+  background-color: ${t => `rgba(${t.theme.colorBG0RGB}, 1)`};
+  color:  ${t => t.theme.colorText};
 `;
 
 const LinksContainer = styled.div`
@@ -132,7 +132,7 @@ const NavigationListState = (): State => {
 };
 
 const mapDispatchToProps = {
-  toggleTheme: toggleThemeAction
+  toggleTheme: ToggleThemeAction.create
 };
 
 type Props = typeof mapDispatchToProps;

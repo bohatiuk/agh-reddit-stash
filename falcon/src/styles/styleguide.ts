@@ -101,8 +101,4 @@ export type ColorsRGB = {
 
 export type Theme = typeof lightTheme;
 
-export type TTP = {
-  theme: Theme;
-};
-
 export const appearTimeout = 750;

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { ApiTweet } from '../../services/api/types';
-import { styles, TTP } from '../../styles/styleguide';
+import { styles } from '../../styles/styleguide';
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const ImageSection = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: ${styles.m5} 0 ${styles.M1} ${styles.m5};
-  border-bottom: 1px solid ${(theme: TTP) => theme.theme.colorGray0};
+  border-bottom: 1px solid ${t => t.theme.colorGray0};
 `;
 
 const ImageSectionText = styled.p`
@@ -54,6 +54,11 @@ const ContinueAction = styled.a`
   text-decoration: underline;
   margin: ${styles.m3};
   cursor: pointer;
+  transition: color ${styles.transitionParams};
+
+  &:hover {
+    color: ${t => t.theme.colorP1};
+  }
 `;
 
 function TweetPreview({ tweet }: Props) {

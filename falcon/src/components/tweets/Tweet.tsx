@@ -2,7 +2,7 @@ import { Grow, Icon } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
 import { ApiTweet } from '../../services/api/types';
-import { styles, TTP } from '../../styles/styleguide';
+import { styles } from '../../styles/styleguide';
 
 interface Props {
   tweet: ApiTweet;
@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid ${(theme: TTP) => theme.theme.colorGray0};
+  border-bottom: 1px solid ${t => t.theme.colorGray0};
   padding: 20px;
   cursor: pointer;
 
@@ -24,7 +24,7 @@ const Container = styled.div`
   }
 
   &:hover {
-    color: ${( theme: TTP) => theme.theme.colorP1};
+    color: ${t => t.theme.colorP1};
   }
 
 `;
@@ -59,7 +59,7 @@ const ContentText = styled.p`
 `;
 
 const ReadMoreBtn = styled.div`
-  color: ${(theme: TTP) => theme.theme.colorGray0};
+  color: ${t => t.theme.colorGray0};
 `;
 
 function Tweet({ tweet, index }: Props) {

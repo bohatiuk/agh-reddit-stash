@@ -1,14 +1,13 @@
 import { Icon } from '@material-ui/core';
 import styled from 'styled-components';
 import React from 'react';
-import { TTP } from '../../styles/styleguide';
 
 const Hover = styled.div`
-  transition: color ${({ theme }: TTP) => theme.transitionParams};
+  transition: color ${t => t.theme.transitionParams};
   cursor: pointer;
-  color: ${({ theme }: TTP) => `rgba(${theme.colorP1RGB}, 0.7)`};
+  color: ${t => `rgba(${t.theme.colorP1RGB}, 0.7)`};
   &:hover {
-    color: ${({ theme }: TTP) => theme.colorP1};
+    color: ${t => t.theme.colorP1};
   }
 `;
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

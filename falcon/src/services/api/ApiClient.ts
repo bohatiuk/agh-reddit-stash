@@ -1,5 +1,5 @@
 import { ApiTweet } from './types';
-import { range } from 'lodash';
+import { range, shuffle } from 'lodash';
 
 export class ApiClient {
   private static instance: ApiClient;
@@ -15,7 +15,7 @@ export class ApiClient {
   }
 
   public async getTweets(): Promise<ApiTweet[]> {
-    return range(5).map(i => {
+    return shuffle(range(7).map(i => {
       return {
         id: 'raeanonid' + i,
         author: {
@@ -25,9 +25,9 @@ export class ApiClient {
         },
         content: 'Please consider moving to Starbase or greater Brownsville/South Padre area in Texas & encourage friends to do so! '
           + 'SpaceX’s hiring needs for engineers, technicians, builders & essential support personnel of all kinds are growing rapidly.',
-        timestamp: Date.now() - 6000000 * i,
+        timestamp: Date.now() - 60000000 * i,
         url: 'https://twitter.com/elonmusk/status/1376901399867441156'
       };
-    });
+    }));
   }
 }

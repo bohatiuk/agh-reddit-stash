@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { GlobalState } from '../../reducers';
 import Tweet from './Tweet';
 import { ApiTweet } from '../../services/api/types';
+import moment from 'moment';
 
 function TweetList({ tweets, onTweetPicked }: Props) {
   return (
@@ -17,8 +18,16 @@ function TweetList({ tweets, onTweetPicked }: Props) {
 }
 
 function mapStateToProps(state: GlobalState) {
+  const filteredLower = state.tweets.lowerDateBound
+    ? state.tweets.tweets.filter(tweet => state.tweets.lowerDateBound?.isSameOrBefore(moment(tweet.timestamp).startOf('day')))
+    : state.tweets.tweets;
+
+  const filteredUpper = state.tweets.upperDateBound
+    ? filteredLower.filter(tweet => state.tweets.upperDateBound?.isSameOrAfter(moment(tweet.timestamp).startOf('day')))
+    : filteredLower;
+
   return {
-    tweets: state.tweets.tweets
+    tweets: filteredUpper
   };
 }
 type Props = ReturnType<typeof mapStateToProps> & {

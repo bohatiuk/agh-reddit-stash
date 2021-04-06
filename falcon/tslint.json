@@ -8,6 +8,7 @@
       "arrow-parens": false,
       "ban-types": [true, ["Number"], ["Object"], ["String"], ["Timer"]],
       "class-name": true,
+      "max-classes-per-file": false,
       "comment-format": [true, "check-space"],
       "curly": true,
       "eofline": true,

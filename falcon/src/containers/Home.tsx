@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { CallToActionBtn, CallToActionOutlinedBtn } from '../common/Buttons';
 import Twitter from '../components/icons/Twitter';
 import { config } from '../config';
-import { styles, TTP } from '../styles/styleguide';
+import { styles } from '../styles/styleguide';
 
 const Container = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const BannerContainer = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: flex-start;
-  background-color: ${({ theme}: TTP) => theme.colorBG3};
+  background-color: ${t => t.theme.colorBG3};
 `;
 
 const Actions = styled.div`
@@ -38,7 +38,7 @@ const Actions = styled.div`
 const TextTitle = styled.div`
   margin-top: 92px;
   font: ${styles.fontH5};
-  color: ${({ theme }: TTP) => theme.colorP1};
+  color: ${t => t.theme.colorP1};
 `;
 
 const TestDescribtion = styled.div`

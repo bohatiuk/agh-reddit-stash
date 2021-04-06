@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React from 'react';
-import { TTP } from '../../styles/styleguide';
 import { ReactSVG } from 'react-svg';
 import { CenterDiv } from '../../common/CenterDiv';
 
@@ -9,7 +8,7 @@ const Container = styled(CenterDiv)`
   font-size: 72px;
 
   & svg {
-    fill: ${({ theme }: TTP) => theme.colorBG0};
+    fill: ${t => t.theme.colorBG0};
   }
 `;
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { TTP } from '../styles/styleguide';
 
 export const HoverBorder = styled.div`
   &:after {
@@ -8,8 +7,8 @@ export const HoverBorder = styled.div`
     height: 1px;
     margin: 1px;
     display: block;
-    background-color: ${({ theme }: TTP) => theme.colorP1};
-    transition: width ${({ theme }: TTP) => theme.transitionParams};
+    background-color: ${t => t.theme.colorP1};
+    transition: width ${t => t.theme.transitionParams};
 
   }
   &:hover:after {

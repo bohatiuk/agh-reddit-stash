@@ -1,5 +1,5 @@
-import { StyleActions } from '../actions/styleActions';
-import { ActionType } from '../actions/types';
+import { TAction } from '../actions';
+import { ToggleThemeAction } from '../actions/styleActions';
 import { darkTheme, lightTheme, Theme } from '../styles/styleguide';
 
 export enum ThemeTypes { Light, Dark }
@@ -13,16 +13,13 @@ const initialState: State = {
   theme: darkTheme
 };
 
-export function styleReducer(state = initialState, action: StyleActions) {
-  switch (action.type) {
-
-  case ActionType.StyleChangeTheme:
+export function styleReducer(state = initialState, action: TAction) {
+  if (ToggleThemeAction.isActionOfType(action)) {
     const update = getThemeUpdates(state);
     return { ...state, ...update };
-
-  default:
-    return state;
   }
+
+  return state;
 }
 
 export function getThemeUpdates(state: State): Partial<State> {

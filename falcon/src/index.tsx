@@ -14,10 +14,9 @@ import thunk from 'redux-thunk';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Dashboard from './containers/Dashboard';
 import { connect } from 'react-redux';
-import { TTP } from './styles/styleguide';
 import { About } from './containers/About';
 import Home from './containers/Home';
-import { loadTweets as loadTweetsAction } from './actions';
+import { LoadTweetsAction } from './actions';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -31,12 +30,12 @@ const Global = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
 
-    background-color: ${({ theme }: TTP) => theme.colorBG0};
-    color: ${({ theme }: TTP) => theme.colorText};
+    background-color: ${t => t.theme.colorBG0};
+    color: ${t => t.theme.colorText};
   }
 
   .drawer-bg {
-    background-color: rgba(${({ theme }: TTP) => theme.colorBG1RGB}, 0.0) !important;
+    background-color: rgba(${t => t.theme.colorBG1RGB}, 0.0) !important;
   }
 `;
 
@@ -47,7 +46,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-color: ${({ theme }: TTP) => theme.colorBG0};
+  background-color: ${t => t.theme.colorBG0};
   background-size: 20px 20px;
 `;
 
@@ -79,7 +78,7 @@ function MainComponent({ theme, loadTweets }: Props) {
 }
 
 const mapDispatchToProps: Dispatch = {
-  loadTweets: loadTweetsAction
+  loadTweets: LoadTweetsAction.create
 };
 type Dispatch = {
   loadTweets(): void;

@@ -1,10 +1,19 @@
-import { ActionType } from './types';
+import { ActionType, AppAction, TAction } from './types';
 
 export function toggleTheme() {
   return {
     type: ActionType.StyleChangeTheme,
   };
 }
-export type ToggleThemeAction = ReturnType<typeof toggleTheme>;
+export class ToggleThemeAction extends AppAction {
+  public static type = 'ToggleThemeAction';
 
-export type StyleActions = ToggleThemeAction;
+  static create() {
+    return { type: ToggleThemeAction.type };
+  }
+
+  static isActionOfType(action: TAction): action is TToggleThemeAction {
+    return ToggleThemeAction.type === action.type;
+  }
+}
+export type TToggleThemeAction = TAction;
