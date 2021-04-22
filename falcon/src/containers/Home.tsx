@@ -1,11 +1,11 @@
-import { Icon } from '@material-ui/core';
+import { Grow, Icon } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CallToActionBtn, CallToActionOutlinedBtn } from '../common/Buttons';
 import Twitter from '../components/icons/Twitter';
 import { config } from '../config';
-import { styles, TTP } from '../styles/styleguide';
+import { styles } from '../styles/styleguide';
 
 const Container = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const BannerContainer = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: flex-start;
-  background-color: ${({ theme}: TTP) => theme.color1};
+  background-color: ${t => t.theme.colorBG3};
 `;
 
 const Actions = styled.div`
@@ -38,7 +38,7 @@ const Actions = styled.div`
 const TextTitle = styled.div`
   margin-top: 92px;
   font: ${styles.fontH5};
-  color: ${({ theme }: TTP) => theme.color5};
+  color: ${t => t.theme.colorP1};
 `;
 
 const TestDescribtion = styled.div`
@@ -76,7 +76,6 @@ const Card = styled.div`
 
 const CardTitle = styled.div`
   font: ${styles.fontN7};
-  color: ${({ theme }: TTP) => theme.color2};
   margin-bottom: ${styles.m4};
 `;
 
@@ -117,20 +116,26 @@ function Home() {
       </BannerContainer>
       <ContentContainer>
         <CardsContainer>
-          <Card>
-            <CardTitle>Something</CardTitle>
-            <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
-          </Card>
+          <Grow in appear timeout={500}>
+            <Card>
+              <CardTitle>Something</CardTitle>
+              <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+            </Card>
+          </Grow>
+          <Grow in appear timeout={1200}>
           <Card>
             <CardTitle>Something</CardTitle>
             <CardDescribtion> you open it directly in the browser, you will see an empty page.
               sit am. Lorem ipsum dolor sit am.</CardDescribtion>
           </Card>
+          </Grow>
+          <Grow in appear timeout={1500}>
           <Card>
             <CardTitle>Something</CardTitle>
             <CardDescribtion>Lorem ipsum  you open it directly in the browser, you will
               see an empty page. dolor sit am.</CardDescribtion>
           </Card>
+          </Grow>
         </CardsContainer>
       </ContentContainer>
     </Container>

@@ -1,31 +1,33 @@
 import { parseToRgb } from '../utils/css';
 
 const darkColors = {
-  color0: '#1f1f1f',
-  color1: '#3f3f3f',
-  color2: '#5f5f5f',
-  color3: '#7f7f7f',
-  color4: '#57a899',
-  color5: '#6fc3a8',
-  color6: '#86deb7',
-  color7: '#e1e1e1',
-  color8: '#fafafa',
-  colorGray1: '#f3f3f3',
-  colorGray0: '#3f3f3f',
+  colorBG0: '#121212',
+  colorBG1: '#181818',
+  colorBG2: '#242424',
+  colorBG3: '#363636',
+  colorP1: '#B15CE6',
+  colorP2: '#CDE650',
+  colorGray0: '#363636',
+  colorGray1: '#3f3f3f',
+  colorText: '#f3f3f3',
+  colorTextN: '#121212',
+  shadow: 'none',
 };
 
 const lightColors = {
-  color8: '#1f1f1f',
-  color7: '#3f3f3f',
-  color6: '#5f5f5f',
-  color5: '#408d8a',
-  color4: '#57a899',
-  color3: '#6fc3a8',
-  color2: '#86deb7',
-  color1: '#e1e1e1',
-  color0: '#fafafa',
-  colorGray0: '#f3f3f3',
+  colorBG0: '#f3f3f3',
+  colorBG1: '#f3f3f3',
+  colorBG2: '#f3f3f3',
+  colorBG3: '#d2d2d2',
+  colorP1: '#6E00B3',
+  colorP2: '#ADCC14',
+  colorGray0: '#363636',
   colorGray1: '#3f3f3f',
+  colorText: '#121212',
+  colorTextN: '#f3f3f3',
+  shadow: `-webkit-box-shadow: 4px 4px 8px 1px rgba(18,18,18,0.4);
+  -moz-box-shadow: 4px 4px 8px 1px rgba(18,18,18,0.4);
+  box-shadow: 4px 4px 8px 1px rgba(18,18,18,0.4);`
 };
 
 export const darkColorsRGB = parseToRgb(darkColors);
@@ -87,21 +89,16 @@ export const lightTheme = {
 };
 
 export type ColorsRGB = {
-  color0RGB: string;
-  color1RGB: string;
-  color2RGB: string;
-  color3RGB: string;
-  color4RGB: string;
-  color5RGB: string;
-  color6RGB: string;
-  color7RGB: string;
-  color8RGB: string;
-  colorGray1RGB: string;
-  colorGray0RGB: string;
+  colorBG0RGB: string,
+  colorBG1RGB: string,
+  colorBG2RGB: string,
+  colorBG3RGB: string,
+  colorP1RGB: string,
+  colorP2RGB: string,
+  colorGray0RGB: string,
+  colorGray1RGB: string,
 };
 
 export type Theme = typeof lightTheme;
 
-export type TTP = {
-  theme: Theme;
-};
+export const appearTimeout = 750;

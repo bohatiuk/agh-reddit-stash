@@ -3,20 +3,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { HoverBorder } from '../common/BorderAnimation';
 import { CenterDiv } from '../common/CenterDiv';
-import { styles, TTP } from '../styles/styleguide';
+import { styles } from '../styles/styleguide';
 
 const NavEntryDiv = styled.div`
   display: flex;
   align-items: center;
   height: 42px;
-  border-radius: ${({ theme }: TTP) => theme.defaultRadius};
-  transition: all ${({ theme }: TTP) => theme.transitionParams};
-  font: ${({ theme }: TTP) => theme.fontN5};
+  border-radius: ${t => t.theme.defaultRadius};
+  transition: all ${t => t.theme.transitionParams};
+  font: ${t => t.theme.fontN5};
   cursor: pointer;
-  margin-left: ${({ theme }: TTP) => theme.m2};
+  margin-left: ${t => t.theme.m2};
 
   &:hover {
-    color: ${({ theme }: TTP) => theme.color4};
+    color: ${t => t.theme.colorP1};
     margin-left: ${styles.m3};
   }
 `;
