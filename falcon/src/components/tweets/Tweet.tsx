@@ -40,7 +40,7 @@ const Image = styled.div`
   height: 125px;
   min-height: 125px;
   border-radius: ${styles.defaultRadius};
-  
+
   &:before {
     position: absolute;
     right: 0;
