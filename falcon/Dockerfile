@@ -1,9 +1,10 @@
-FROM node:latest
+FROM node:alpine
 
 COPY . .
 
-RUN npm install --production
-RUN npm install -g serve
+RUN npm install
 RUN npm run build
 
-CMD ["serve", "-s build"]
+EXPOSE 5000
+
+CMD ["npm", "run", "serve"]
