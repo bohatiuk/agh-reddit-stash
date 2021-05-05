@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:10.5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=p
+      - POSTGRES_DB=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5438:5432'
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+  apigtw:
+    image: canary
+    depends_on:
+      - db
+    ports:
+    - '8080:8080'

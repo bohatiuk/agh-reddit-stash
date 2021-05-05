@@ -1,18 +1,15 @@
 import psycopg2
 
-def _conn(postgres_file="./static/postgres.txt"):
-    result = {}
-    with open(postgres_file, "r") as secret:
-        for line in secret:
-            line = line.strip()
-            key, value = line.split("=")
-            result[key] = value
+from servicemap import service_map
+
+def _conn():
+    svc_map = service_map()
 
     conn = psycopg2.connect(
-        host=result["host"],
-        database=result["database"],
-        user=result["user"],
-        password=result["password"])
+        host=svc_map["db"]["host"],
+        database=svc_map["db"]["db_name"],
+        user=svc_map["db"]["user"],
+        password=svc_map["db"]["password"])
 
     return conn
 

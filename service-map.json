@@ -1,0 +1,24 @@
+{
+  "db": {
+    "host": "localhost",
+    "port": "5432",
+    "db_name": "postgres",
+    "user": "postgres",
+    "password": "p"
+  },
+  "canary": {
+    "host": "localhost",
+    "port": "8080",
+    "endpoints": "nil"
+  },
+  "sentiment_analysis": {
+    "host": "localhost",
+    "port": "8081",
+    "endpoints": {"posts": "posts"}
+  },
+  "category_prediction": {
+    "host": "localhost",
+    "port": "8082",
+    "endpoints": {"posts": "posts"}
+  }
+}
