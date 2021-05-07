@@ -5,3 +5,5 @@
 ### API Server with scrapper - 'Canary'
 
 # Architecture
+
+![Archi](./docs/archi.png?raw=true)
