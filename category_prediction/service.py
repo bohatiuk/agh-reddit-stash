@@ -1,0 +1,1 @@
+# tu twoj Flask czy co kolwiek przyjmujocego requesty

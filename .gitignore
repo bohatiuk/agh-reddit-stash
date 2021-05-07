@@ -16,6 +16,9 @@ falcon/npm-debug.log*
 canary/static/postgres.txt
 canary/static/secret.txt
 
+# db data:
+pgdata
+
 ### PYTHON
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -2,8 +2,6 @@
 
 ### Front-end - 'Falcon'
 
-### Back-end scraping service - 'Canary'
+### API Server with scrapper - 'Canary'
 
 # Architecture
-
-![High overfiew architecture](./Archi.png)
