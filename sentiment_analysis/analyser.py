@@ -2,18 +2,13 @@ import os
 import random
 import spacy
 from spacy.util import minibatch, compounding
+from spacy.lang.en.stop_words import STOP_WORDS
+import string
 import pandas as pd
 
 
-TEST_REVIEW = """
-Transcendently beautiful in moments outside the office, it seems almost
-sitcom-like in those scenes. When Toni Colette walks out and ponders
-life silently, it's gorgeous.<br /><br />The movie doesn't seem to decide
-whether it's slapstick, farce, magical realism, or drama, but the best of it
-doesn't matter. (The worst is sort of tedious - like Office Space with less
-humor.)
-"""
-
+POSTS_FOR_TEST = {}
+LABELED_POSTS = {}
 
 eval_list = []
 
@@ -103,22 +98,30 @@ def evaluate_model(tokenizer, textcat, test_data: list) -> dict:
     return {"precision": precision, "recall": recall, "f-score": f_score}
 
 
-def test_model(input_data: str = TEST_REVIEW):
+def test_model():
     #  Load saved trained model
     loaded_model = spacy.load("model_artifacts")
-    # Generate prediction
-    parsed_text = loaded_model(input_data)
-    # Determine prediction to return
-    if parsed_text.cats["pos"] > parsed_text.cats["neg"]:
-        prediction = "Positive"
-        score = parsed_text.cats["pos"]
-    else:
-        prediction = "Negative"
-        score = parsed_text.cats["neg"]
-    print(
-        f"Review text: {input_data}\nPredicted sentiment: {prediction}"
-        f"\tScore: {score}"
-    )
+    print("Testing model")
+    for post_id in POSTS_FOR_TEST.keys():
+        # Generate prediction
+        parsed_text = loaded_model(POSTS_FOR_TEST[post_id])
+        print("Parsed: ", parsed_text)
+        # Determine prediction to return
+        if parsed_text.cats["pos"] > parsed_text.cats["neg"]:
+            prediction = "Positive"
+            score = parsed_text.cats["pos"]
+        else:
+            prediction = "Negative"
+            score = parsed_text.cats["neg"]
+        print(prediction)
+        LABELED_POSTS[post_id] = prediction
+    print(LABELED_POSTS)
+    return LABELED_POSTS
+    # print(
+    #     f"Review text: {input_data}\nPredicted sentiment: {prediction}"
+    #     f"\tScore: {score}"
+    # )
+
 
 
 def load_training_data(
@@ -150,11 +153,53 @@ def load_training_data(
     return reviews[:split], reviews[split:]
 
 
-if __name__ == "__main__":
-    train, test = load_training_data(limit=2500)
-    print("Training model")
-    train_model(train, test)
-    df = pd.DataFrame(eval_list)
-    pd.DataFrame.plot(df)
-    print("Testing model")
+def process_posts(posts):
+    # not adding subreddit name
+    POSTS_FOR_TEST.clear()
+    LABELED_POSTS.clear()
+    print(type(posts))
+    for post_id in posts.keys():
+        post_content = posts[post_id]
+
+        post = ""
+        post += post_content['post_title']
+        post += " "
+        post += post_content['post_body']
+
+        print("Before cleaning: ", post)
+        clean_post = dataCleaning(post)
+        print("After cleaning: ", clean_post)
+        POSTS_FOR_TEST[post_id] = clean_post
     test_model()
+    return LABELED_POSTS
+
+
+def dataCleaning(sentence):
+    punct = string.punctuation
+    stopwords = list(STOP_WORDS)
+    nlp = spacy.load("en_core_web_sm")
+
+    doc = nlp(sentence)
+    tokens = []
+    for token in doc:
+        if token.lemma_ != '-PRON-':
+          temp = token.lemma_.lower().strip()
+        else:
+          temp = token.lower_
+        tokens.append(temp)
+    clean_tokens = []
+    for token in tokens:
+        if token not in punct and token not in stopwords:
+          clean_tokens.append(token)
+    return ' '.join(map(str, clean_tokens))
+
+# if __name__ == "__main__":
+    # train, test = load_training_data(limit=2500)
+    # print("Training model")
+    # train_model(train, test)
+    # df = pd.DataFrame(eval_list)
+    # pd.DataFrame.plot(df)
+    # print("Testing model")
+    # for post_id in POSTS_FOR_TEST.keys():
+    #     test_model(POSTS_FOR_TEST[post_id], post_id)
+
