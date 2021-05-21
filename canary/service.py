@@ -1,11 +1,11 @@
 import time
 
-from flask import Flask
+from flask import Flask, jsonify
 from timeloop import Timeloop
 from datetime import timedelta
 
 import postgres
-from scraper import fetch_posts
+from scraper import *
 
 import requests
 
@@ -15,7 +15,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Docker'
+    return 'Canary'
+
+@app.route('/subreddits', methods=['GET'])
+def get_subreddits():
+    payload = {"subreddits": get_subreddits()}
+    return jsonify(payload)
+
 
 
 tl = Timeloop()
@@ -24,8 +30,6 @@ tl = Timeloop()
 def periodic_fetch():
     posts = fetch_posts()
     postgres.insert(posts)
-
-
 
     notify(posts)
 

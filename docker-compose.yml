@@ -28,10 +28,16 @@ services:
     build: ./category_prediction
     ports:
       - '8082:8082'
+    depends_on:
+      - apigtw
+    tty: true
   sentiment_analysis:
     build: ./sentiment_analysis
     ports:
       - '8081:8081'
+    depends_on:
+      - apigtw
+    tty: true
 
 
 
