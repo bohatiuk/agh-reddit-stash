@@ -1,5 +1,6 @@
 FROM node:alpine
 
+WORKDIR /falcon
 COPY . .
 
 RUN npm install
