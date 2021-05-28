@@ -13,6 +13,7 @@
     "@types/node": "^12.20.5",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
+    "express": "^4.17.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "react": "^17.0.1",
@@ -30,7 +31,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run lint && react-scripts build",
+    "build": "react-scripts build",
+    "serve": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "tslint --project ."
