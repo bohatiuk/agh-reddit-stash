@@ -19,8 +19,8 @@ const MenuContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${t => t.theme.colorBG1};
-  box-shadow: ${t => t.theme.shadow};
+  background-color: ${(t) => t.theme.colorBG1};
+  box-shadow: ${(t) => t.theme.shadow};
 `;
 
 const MenuIcon = styled.div`
@@ -36,8 +36,8 @@ const Container = styled.div`
   width: 320px;
   padding: ${styles.m4} 0;
   padding-left: ${styles.m4};
-  background-color: ${t => `rgba(${t.theme.colorBG0RGB}, 1)`};
-  color:  ${t => t.theme.colorText};
+  background-color: ${(t) => `rgba(${t.theme.colorBG0RGB}, 1)`};
+  color: ${(t) => t.theme.colorText};
 `;
 
 const LinksContainer = styled.div`
@@ -53,43 +53,69 @@ const Seperator = styled.div`
   align-self: center;
 `;
 
+const BottomIcons = styled.div`
+  display: flex;
+
+  & > * {
+    margin-right: 16px;
+  }
+`;
+
 function NavigationList({ toggleTheme }: Props) {
-  const {
-    isOpen,
-    toggleOpen,
-  } = NavigationListState();
+  const { isOpen, toggleOpen } = NavigationListState();
 
   const renderDrawer = () => {
     return (
       <Drawer
-        anchor='left'
+        anchor="left"
         open={isOpen}
         onClose={toggleOpen}
-        classes={{paper: 'drawer-bg'}}
+        classes={{ paper: 'drawer-bg' }}
       >
         <Container>
-          <HoverIcon onClick={toggleOpen} size='large' icon='menu_open'/>
+          <HoverIcon onClick={toggleOpen} size="large" icon="menu_open" />
           <LinksContainer>
             <Seperator>
               <Diamond />
             </Seperator>
-            <Link to='/'>
-              <NavigationEntry text='Home' icon='home' onClick={toggleOpen} />
+            <Link to="/">
+              <NavigationEntry text="Home" icon="home" onClick={toggleOpen} />
             </Link>
-            <Link to='/dashboard'>
-              <NavigationEntry text='Dashboard' icon='select_all' onClick={toggleOpen} />
+            <Link to="/dashboard">
+              <NavigationEntry
+                text="Dashboard"
+                icon="select_all"
+                onClick={toggleOpen}
+              />
             </Link>
             <Seperator>
               <Diamond />
             </Seperator>
-            <Link to='/about'>
-              <NavigationEntry text='About' icon='fingerprint' onClick={toggleOpen} />
+            <Link to="/about">
+              <NavigationEntry
+                text="About"
+                icon="fingerprint"
+                onClick={toggleOpen}
+              />
             </Link>
-            <a href={config.documentationURL} target='_blank' rel='noreferrer'>
-              <NavigationEntry text='Documentation' icon='code' onClick={toggleOpen} />
+            <a href={config.documentationURL} target="_blank" rel="noreferrer">
+              <NavigationEntry
+                text="Documentation"
+                icon="code"
+                onClick={toggleOpen}
+              />
             </a>
           </LinksContainer>
-          <HoverIcon onClick={toggleTheme} size='large' icon='invert_colors'/>
+          <BottomIcons>
+            <HoverIcon
+              onClick={toggleTheme}
+              size="large"
+              icon="invert_colors"
+            />
+            <Link to="/settings">
+              <HoverIcon size="large" icon="settings" />
+            </Link>
+          </BottomIcons>
         </Container>
       </Drawer>
     );
@@ -100,7 +126,7 @@ function NavigationList({ toggleTheme }: Props) {
       <MenuContainer>
         {!isOpen && (
           <MenuIcon>
-            <HoverIcon onClick={toggleOpen} size='large' icon='menu' />
+            <HoverIcon onClick={toggleOpen} size="large" icon="menu" />
           </MenuIcon>
         )}
       </MenuContainer>
@@ -132,7 +158,7 @@ const NavigationListState = (): State => {
 };
 
 const mapDispatchToProps = {
-  toggleTheme: ToggleThemeAction.create
+  toggleTheme: ToggleThemeAction.create,
 };
 
 type Props = typeof mapDispatchToProps;

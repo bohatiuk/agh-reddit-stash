@@ -3,6 +3,7 @@ import { range, shuffle } from 'lodash';
 
 export class ApiClient {
   private static instance: ApiClient;
+  private baseUrl = 'localhost:8000';
 
   private constructor() { }
 
@@ -12,6 +13,10 @@ export class ApiClient {
     }
 
     return this.instance;
+  }
+
+  public setBaseUrl(url: string, port: string): void {
+    this.baseUrl = `${url}:${port}`;
   }
 
   public async getTweets(): Promise<ApiTweet[]> {
