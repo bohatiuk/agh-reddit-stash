@@ -12,7 +12,7 @@ services:
     logging:
       options:
         max-size: 10m
-        max-file: "3"
+        max-file: '3'
     ports:
       - '5438:5432'
     volumes:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - db
     ports:
-    - '8080:8080'
+      - '8080:8080'
   category_prediction:
     build: ./category_prediction
     ports:
@@ -38,8 +38,7 @@ services:
     depends_on:
       - apigtw
     tty: true
-
-
-
-
-
+  falcon:
+    build: ./falcon
+    ports:
+      - '5000:5000'
