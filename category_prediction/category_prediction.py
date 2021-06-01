@@ -1,4 +1,4 @@
-from canary.postgres import _conn
+from categorized_data import fetch_categorized_posts
 import nltk
 from nltk import word_tokenize
 from nltk.corpus import stopwords
@@ -7,85 +7,45 @@ nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
-list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
+class CategoryClassifier:
 
-def category_to_number(category):
-    return list_of_categories.index(category) + 1
+    def __init__(self):
+        self.list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
+        self.posts = fetch_categorized_posts()
+        self.lemmatizer = WordNetLemmatizer()
+        processed = []
+        for post in self.posts:
+            processed.append(self.process_post(post))
 
+        self.clf = nltk.NaiveBayesClassifier.train(processed)
 
-def number_to_category(number):
-    return list_of_categories[number - 1]
+    def process_post(self, post):
+        title, body, category = post
+        if body != 'none':
+            title += body
+        tokens = word_tokenize(title)
+        filtered = [self.lemmatizer.lemmatize(token.lower()) for token in tokens if
+                    token not in stopwords.words("english")]
+        words = dict()
+        for word in filtered:
+            words[word] = True
+        if category in self.list_of_categories:
+            num = self.category_to_number(category)
+        else:
+            num = 0
 
+        return (words, num)
 
-def get_categorized_posts(conn):
-    cursor = conn.cursor()
-    stmt = f'select * from sp1.classified'
-    cursor.execute(stmt)
-    posts = cursor.fetchall()
-    cursor.close()
+    def classify_post(self, title, body, subreddit):
+        processed = self.process_post((title, body, "category"))
+        category = self.clf.classify(processed[0])
 
-    return posts
-
-
-def get_posts_to_classify(conn):
-    cursor = conn.cursor()
-    stmt = f'select * from sp1.subreddits'
-    cursor.execute(stmt)
-    posts = cursor.fetchall()
-    cursor.close()
-
-    return posts
-
-
-def process_post(post):
-    lemmatizer = WordNetLemmatizer()
-    id, title, body, category = post
-    if body != 'none':
-        title += body
-    tokens = word_tokenize(title)
-    filtered = [lemmatizer.lemmatize(token.lower()) for token in tokens if
-                token not in stopwords.words("english")]
-    words = dict()
-    for word in filtered:
-        words[word] = True
-    if category in list_of_categories:
-        num = category_to_number(category)
-    else:
-        num = 0
-    return (words, num)
+        return self.number_to_category(category)
 
 
-def build_classification_model(posts):
-    processed = []
-    for post in posts:
-        processed.append(process_post(post))
-
-    clf = nltk.NaiveBayesClassifier.train(processed)
-
-    return clf
-
-def save_in_db(conn, reddit_id, category):
-    cursor = conn.cursor()
-    stmt = f'insert into sp1.category_prediction (id, reddit_id, category) ' \
-           f'values (default, %s, %s)'
-    cursor.execute(stmt, (reddit_id, category))
-    conn.commit()
-    cursor.close()
+    def category_to_number(self, category):
+        return self.list_of_categories.index(category) + 1
 
 
-def classify_posts(posts, clf, conn):
-    for post in posts:
-        id, reddit_id, title, subreddit, body, num_comments, score, created = post
-        processed = process_post((id, title, body, "category"))
-        category = clf.classify(processed[0])
-        save_in_db(conn, reddit_id, number_to_category(category))
-
-
-
-if __name__ == "__main__":
-    conn = _conn("../canary/static/postgres.txt")
-    categorized = get_categorized_posts(conn)
-    clf = build_classification_model(categorized)
-    to_classsify = get_posts_to_classify(conn)
-    classify_posts(to_classsify, clf, conn)
-    conn.close()
+    def number_to_category(self, number):
+        return self.list_of_categories[number - 1]

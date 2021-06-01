@@ -1,18 +1,33 @@
-from canary.postgres import _conn
-from canary.scraper import fetch_categorized_posts
+import praw
 
-posts = fetch_categorized_posts()
+def get_reddit(secret_file="./static/secret.txt"):
+    result = {}
+    with open(secret_file, "r") as secret:
+        for line in secret:
+            line = line.strip()
+            key, value = line.split("=")
+            result[key] = value
 
-conn = _conn("../canary/static/postgres.txt")
-cursor = conn.cursor()
+    return praw.Reddit(user_agent=result["user_agent"],
+                       client_id=result["client_id"],
+                       client_secret=result["client_secret"])
 
-for post in posts:
-    id, title, subreddit, body, score, num_comments, unix_epoch = post
-    stmt = f'insert into sp1.classified (id, title, body, category) ' \
-           f'values (default, %s, %s, %s)'
-    cursor.execute(stmt, (title, body, subreddit))
 
-conn.commit()
-cursor.close()
-conn.close()
+def fetch_categorized_posts():
+    reddit = get_reddit()
+    subreddits = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
 
+    posts = []
+    for subreddit_name in subreddits:
+        try:
+            subreddit = reddit.subreddit(subreddit_name)
+            for post in subreddit.top(limit=3000):
+                body = post.selftext
+                if not body:
+                    body = "none"
+                posts.append(
+                    [post.title, body, subreddit_name])
+        except Forbidden:
+            print(f"Exception for subreddit {subreddit_name}")
+            continue
+    return posts

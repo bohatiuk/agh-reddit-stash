@@ -17,6 +17,9 @@ falcon/npm-debug.log*
 # canary
 canary/static/postgres.txt
 canary/static/secret.txt
+category_prediction/static/secret.txt
+
+
 
 # db data:
 pgdata
