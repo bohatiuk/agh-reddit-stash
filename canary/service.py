@@ -11,18 +11,24 @@ import requests
 
 from servicemap import service_map
 
+from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def hello_world():
     return 'Canary'
 
 @app.route('/subreddits', methods=['GET'])
+@cross_origin()
 def get_subreddits():
     payload = {"subreddits": fetch_subreddits()}
     return jsonify(payload)
 
 @app.route('/posts', methods=['GET'])
+@cross_origin()
 def get_posts():
     subreddit = request.args.get("subreddit")
     author = request.args.get("author")
@@ -30,17 +36,21 @@ def get_posts():
 
     result = postgres.select_posts(page=page, author=author, subreddit=subreddit)
 
-    return jsonify(result).headers.add("Access-Control-Allow-Origin", "*")
+    response = jsonify(result)
+    return response
 
 @app.route('/labels', methods=['GET'])
+@cross_origin()
 def get_labels():
     id = request.args.get("id")
 
     result = postgres.select_labels(int(id))
 
-    return jsonify({"sentiment": "sentiment_pred", "category": "category_pred"}).headers.add("Access-Control-Allow-Origin", "*")
+    response = jsonify(result)
+    return response
 
 @app.route('/db', methods=['GET'])
+@cross_origin()
 def db():
     result = postgres.select()
 
