@@ -32,11 +32,21 @@ def get_posts():
 
     return jsonify(result)
 
+@app.route('/labels', methods=['GET'])
+def get_labels():
+    id = request.args.get("id")
+
+    result = postgres.select_labels(int(id))
+
+    return jsonify({"sentiment": "sentiment_pred", "category": "category_pred"})
+
 @app.route('/db', methods=['GET'])
 def db():
     result = postgres.select()
 
     return jsonify(result)
+
+
 
 tl = Timeloop()
 
@@ -64,6 +74,7 @@ def notify(posts):
     category_resp = requests.get("http:" + category_svc["host"] + ":" + category_svc["port"] +
                                  category_svc["endpoints"]["posts"], params=payload)
 
+    # postgres.insert_labels()
 
     print("Sentiment prediction:")
     print(sentiment_resp.json())

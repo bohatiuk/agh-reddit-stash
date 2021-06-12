@@ -95,3 +95,6 @@ def select_posts(page, author=None, subreddit=None, pagination=100):
     cursor.close()
 
     return result
+
+def select_labels(id):
+    pass
