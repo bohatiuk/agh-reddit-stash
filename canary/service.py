@@ -30,7 +30,7 @@ def get_posts():
 
     result = postgres.select_posts(page=page, author=author, subreddit=subreddit)
 
-    return jsonify(result)
+    return jsonify(result).headers.add("Access-Control-Allow-Origin", "*")
 
 @app.route('/labels', methods=['GET'])
 def get_labels():
@@ -38,7 +38,7 @@ def get_labels():
 
     result = postgres.select_labels(int(id))
 
-    return jsonify({"sentiment": "sentiment_pred", "category": "category_pred"})
+    return jsonify({"sentiment": "sentiment_pred", "category": "category_pred"}).headers.add("Access-Control-Allow-Origin", "*")
 
 @app.route('/db', methods=['GET'])
 def db():
