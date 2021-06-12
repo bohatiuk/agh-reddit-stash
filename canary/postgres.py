@@ -93,6 +93,8 @@ def select_posts(page, author=None, subreddit=None, pagination=100):
         row = cursor.fetchone()
         result.append(row)
 
+    result = result[:-1] # last in none
+
     cursor.close()
 
     return result
