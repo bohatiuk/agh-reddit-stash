@@ -1,7 +1,6 @@
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { AppThunk } from '.';
-import { ApiClient } from '../services/api/ApiClient';
-import { ApiTweet } from '../services/api/types';
+import { apiClient, RedditPost } from '../services/api/types';
 import { AppAction, TAction } from './types';
 
 export class LoadTweetsAction extends AppAction {
@@ -9,11 +8,11 @@ export class LoadTweetsAction extends AppAction {
 
   static create(): AppThunk {
     return async dispatch => {
-      const tweets = await ApiClient.getInstance().getTweets();
+      const posts = await apiClient.getPosts();
 
       dispatch({
         type: LoadTweetsAction.type,
-        payload: tweets,
+        payload: posts,
       });
     };
   }
@@ -23,7 +22,7 @@ export class LoadTweetsAction extends AppAction {
   }
 }
 export interface TLoadTweetsActions extends TAction {
-  payload: ApiTweet[];
+  payload: readonly RedditPost[];
 }
 
 export class SetLowerDateBound extends AppAction {

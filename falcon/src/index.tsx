@@ -14,6 +14,7 @@ import { About } from './containers/About';
 import Home from './containers/Home';
 import { LoadTweetsAction } from './actions';
 import { Settings } from './containers/Settings';
+import PostAnalysis from './components/reddit/PostAnalysis';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -74,6 +75,9 @@ function MainComponent({ theme, loadTweets }: Props) {
           </Route>
           <Route path="/settings" exact>
             <Settings />
+          </Route>
+          <Route path="/post/:id" exact>
+            <PostAnalysis />
           </Route>
         </Switch>
       </ThemeProvider>

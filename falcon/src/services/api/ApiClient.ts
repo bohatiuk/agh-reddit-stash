@@ -1,9 +1,10 @@
-import { ApiTweet } from './types';
-import { range, shuffle } from 'lodash';
-
-export class ApiClient {
+import { logger } from '../logger';
+import { ApiTranslator } from './ApiTranslator';
+import { LabelsResult, RedditClient, RedditPost } from './types';
+export class ApiClient implements RedditClient {
   private static instance: ApiClient;
-  private baseUrl = 'localhost:8000';
+  private translator = new ApiTranslator();
+  private baseUrl = 'http://localhost:8080';
 
   private constructor() { }
 
@@ -16,23 +17,43 @@ export class ApiClient {
   }
 
   public setBaseUrl(url: string, port: string): void {
-    this.baseUrl = `${url}:${port}`;
+    this.baseUrl = `http://${url}:${port}`;
   }
 
-  public async getTweets(): Promise<ApiTweet[]> {
-    return shuffle(range(7).map(i => {
-      return {
-        id: 'raeanonid' + i,
-        author: {
-          userName: 'elonmusk',
-          firstName: 'Elon',
-          lastName: 'Musk'
-        },
-        content: 'Please consider moving to Starbase or greater Brownsville/South Padre area in Texas & encourage friends to do so! '
-          + 'SpaceX’s hiring needs for engineers, technicians, builders & essential support personnel of all kinds are growing rapidly.',
-        timestamp: Date.now() - 60000000 * i,
-        url: 'https://twitter.com/elonmusk/status/1376901399867441156'
-      };
-    }));
+  public async getPosts(page = 1): Promise<readonly RedditPost[]> {
+    try {
+      logger.debug('Gettings posts for page', page);
+      const result = await this.get(`${this.baseUrl}/posts?page=${page}`);
+
+      logger.debug('Got posts for page', result);
+      const posts = (result as any[]).filter(p => p).map(p => this.translator.post(p));
+      logger.debug('Translated posts ', page, posts);
+      return posts;
+    } catch (e) {
+      logger.error('Couldn\'t load posts', e);
+
+      return [];
+    }
+  }
+
+  public async getLabels(id: string): Promise<LabelsResult | undefined> {
+    try {
+      logger.debug('Gettings labels for post id', id);
+      const result = await this.get(`${this.baseUrl}/labels?id=${id}`);
+
+      logger.debug('Got labels', result);
+      const labels = this.translator.labels(result);
+      logger.debug('Translated posts ', labels);
+      return labels;
+    } catch (e) {
+      logger.error('Couldn\'t load posts', e);
+
+      return undefined;
+    }
+  }
+
+  private async get(url: string): Promise<unknown> {
+    const response = await fetch(url, { mode: 'cors' });
+    return await response.json();
   }
 }

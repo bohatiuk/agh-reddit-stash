@@ -20,7 +20,6 @@ const MenuContainer = styled.div`
   align-items: center;
 
   background-color: ${(t) => t.theme.colorBG1};
-  box-shadow: ${(t) => t.theme.shadow};
 `;
 
 const MenuIcon = styled.div`
@@ -30,6 +29,7 @@ const MenuIcon = styled.div`
 const Container = styled.div`
   height: 100%;
   display: flex;
+  overflow-x: hidden;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
