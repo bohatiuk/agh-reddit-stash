@@ -5,16 +5,17 @@ services:
   db:
     image: postgres:10.5
     restart: always
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=p
       - POSTGRES_DB=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
     logging:
       options:
         max-size: 10m
         max-file: '3'
-    ports:
-      - '5438:5432'
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql

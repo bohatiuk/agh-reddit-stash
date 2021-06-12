@@ -1,6 +1,6 @@
 {
   "db": {
-    "host": "localhost",
+    "host": "db",
     "port": "5432",
     "db_name": "postgres",
     "user": "postgres",
@@ -14,11 +14,11 @@
   "sentiment_analysis": {
     "host": "localhost",
     "port": "8081",
-    "endpoints": {"posts": "posts"}
+    "endpoints": {"posts": "/posts"}
   },
   "category_prediction": {
     "host": "localhost",
     "port": "8082",
-    "endpoints": {"posts": "posts"}
+    "endpoints": {"posts": "/posts"}
   }
 }

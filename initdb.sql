@@ -4,6 +4,7 @@ create table sp1.subreddits (
 	id serial primary key,
 	reddit_id varchar(6) not null,
    	title text not null,
+   	author text not null,
 	subreddit text not null,
 	body text not null,
 	num_comments integer not null,

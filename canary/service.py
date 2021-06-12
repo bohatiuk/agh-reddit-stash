@@ -1,6 +1,6 @@
 import time
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from timeloop import Timeloop
 from datetime import timedelta
 
@@ -19,14 +19,28 @@ def hello_world():
 
 @app.route('/subreddits', methods=['GET'])
 def get_subreddits():
-    payload = {"subreddits": get_subreddits()}
+    payload = {"subreddits": fetch_subreddits()}
     return jsonify(payload)
 
+@app.route('/posts', methods=['GET'])
+def get_posts():
+    subreddit = request.args.get("subreddit")
+    author = request.args.get("author")
+    page = request.args.get("page")
 
+    result = postgres.select_posts(page=page, author=author, subreddit=subreddit)
+
+    return jsonify(result)
+
+@app.route('/db', methods=['GET'])
+def db():
+    result = postgres.select()
+
+    return jsonify(result)
 
 tl = Timeloop()
 
-@tl.job(interval=timedelta(hours=1))
+@tl.job(interval=timedelta(minutes=1))
 def periodic_fetch():
     posts = fetch_posts()
     postgres.insert(posts)
@@ -41,13 +55,15 @@ def notify(posts):
     category_svc = svc_map["category_prediction"]
 
     for post in posts:
-        post_id, post_title, subreddit_name, post_body = post[:4]
-        payload[post_id] = {"post_title": post_title, "post_body": post_body, "subreddit_name": subreddit_name}
+        post_id, post_title, post_author, subreddit_name, post_body = post[:5]
+        payload[post_id] = {"post_title": post_title, "post_author": post_author, "post_body": post_body,
+                            "subreddit_name": subreddit_name}
 
     sentiment_resp = requests.get("http:" + sentiment_svc["host"] + ":" + sentiment_svc["port"] +
                                   sentiment_svc["endpoints"]["posts"], params=payload)
     category_resp = requests.get("http:" + category_svc["host"] + ":" + category_svc["port"] +
                                  category_svc["endpoints"]["posts"], params=payload)
+
 
     print("Sentiment prediction:")
     print(sentiment_resp.json())
@@ -57,12 +73,17 @@ def notify(posts):
 
 
 if __name__ == '__main__':
+    # wait for db service to be up for 10 seconds
+    time.sleep(10)
+
+    tl.start()
+
     app.run(port=8080, debug=True, host='0.0.0.0')
 
-    # wait for db service to be up for 20 seconds
-    time.sleep(20)
+    tl.stop()
 
-    tl.start(block=True)
+
+
 
 
 
