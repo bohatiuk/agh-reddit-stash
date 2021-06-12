@@ -1,11 +1,11 @@
 import { Grow, Icon } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
-import { ApiTweet } from '../../services/api/types';
+import { RedditPost } from '../../services/api/types';
 import { styles } from '../../styles/styleguide';
 
 interface Props {
-  tweet: ApiTweet;
+  post: RedditPost;
   index: number;
 }
 
@@ -73,7 +73,7 @@ const ReadMoreBtn = styled.div`
   color: ${t => t.theme.colorGray0};
 `;
 
-function Tweet({ tweet, index }: Props) {
+function Post({ post, index }: Props) {
   return (
     <Grow appear in timeout={300 + index * 200}>
       <Container>
@@ -81,10 +81,10 @@ function Tweet({ tweet, index }: Props) {
           <Image />
           <Content>
             <MetaText>
-              {tweet.author.firstName} {tweet.author.lastName} - {new Date(tweet.timestamp).toLocaleString()}
+              {post.author.firstName} {post.author.lastName} - {new Date(post.timestamp).toLocaleString()}
             </MetaText>
             <ContentText>
-              {tweet.content.substring(0, 150)}
+              {post.content.substring(0, 150)}
             </ContentText>
           </Content>
         </Flex>
@@ -98,4 +98,4 @@ function Tweet({ tweet, index }: Props) {
   );
 }
 
-export default Tweet;
+export default Post;

@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { SetLowerDateBound, SetUpperDateBound } from '../actions';
 import { DateField, withPlaceholder as DateFieldHOC } from '../components/dates/DashboardDateField';
 import DashboardDatePicker from '../components/dates/DashboardDatePicker';
-import TweetList from '../components/tweets/TweetList';
-import TweetPreview from '../components/tweets/TweetPreview';
+import PostList from '../components/reddit/PostList';
+import PostPreview from '../components/reddit/PostPreview';
 import { GlobalState } from '../reducers';
-import { ApiTweet } from '../services/api/types';
+import { RedditPost } from '../services/api/types';
 import { styles } from '../styles/styleguide';
 
 const ColumnContainer = styled.div`
@@ -40,10 +40,10 @@ const PreviewColumn = styled.div`
 `;
 
 function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: ReduxProps) {
-  const [currentTweet, setCurrentTweet] = useState<ApiTweet>();
+  const [currentPost, setCurrentPost] = useState<RedditPost>();
 
-  const handleTweetPicked = (tweet: ApiTweet) => {
-    setCurrentTweet(tweet);
+  const handleTweetPost = (post: RedditPost) => {
+    setCurrentPost(post);
   };
 
   return (
@@ -62,11 +62,11 @@ function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: Red
       </FiltersContainer>
       <ColumnContainer>
         <ListColumn>
-          <TweetList onTweetPicked={handleTweetPicked} />
+          <PostList onPostPicked={handleTweetPost} />
         </ListColumn>
-        {currentTweet && (
+        {currentPost && (
           <PreviewColumn>
-            <TweetPreview tweet={currentTweet} />
+            <PostPreview post={currentPost} />
           </PreviewColumn>
         )}
       </ColumnContainer>

@@ -2,7 +2,7 @@ import { Grow } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { ApiTweet } from '../../services/api/types';
+import { RedditPost } from '../../services/api/types';
 import { styles } from '../../styles/styleguide';
 
 const Container = styled.div`
@@ -61,7 +61,7 @@ const ContinueAction = styled.a`
   }
 `;
 
-function TweetPreview({ tweet }: Props) {
+function PostPreview({ post }: Props) {
   return (
     <Grow appear in timeout={500}>
       <Container>
@@ -69,21 +69,21 @@ function TweetPreview({ tweet }: Props) {
           <Image />
           <ImageSectionText>
             <p>
-              Published by: {tweet.author.firstName} {tweet.author.lastName}
+              Published by: {post.author.firstName} {post.author.lastName}
             </p>
             <p>
-              Published on: {new Date(tweet.timestamp).toLocaleString()}
+              Published on: {new Date(post.timestamp).toLocaleString()}
             </p>
           </ImageSectionText>
         </ImageSection>
         <ContentText>
-          {tweet.content}
+          {post.content}
         </ContentText>
         <ContinueSection>
           <ContinueAction>
             Read analysis
           </ContinueAction>
-          <ContinueAction href={tweet.url} target='_blank'>
+          <ContinueAction href={post.url} target='_blank'>
             See the original
           </ContinueAction>
         </ContinueSection>
@@ -92,6 +92,6 @@ function TweetPreview({ tweet }: Props) {
   );
 }
 
-type Props = { tweet: ApiTweet };
+type Props = { post: RedditPost };
 
-export default connect()(TweetPreview);
+export default connect()(PostPreview);

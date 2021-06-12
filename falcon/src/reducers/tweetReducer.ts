@@ -2,22 +2,22 @@
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { LoadTweetsAction, SetLowerDateBound, SetUpperDateBound } from '../actions/tweetActions';
 import { TAction } from '../actions/types';
-import { ApiTweet } from '../services/api/types';
+import { RedditPost } from '../services/api/types';
 
 export interface State {
-  tweets: ApiTweet[];
+  posts: readonly RedditPost[];
   lowerDateBound: MaterialUiPickersDate;
   upperDateBound: MaterialUiPickersDate;
 }
 const initialState: State = {
-  tweets: [],
+  posts: [],
   lowerDateBound: null,
   upperDateBound: null
 };
 
 export function tweetReducer(state = initialState, action: TAction): State {
   if (LoadTweetsAction.isActionOfType(action)) {
-    return { ...state, tweets: action.payload };
+    return { ...state, posts: action.payload };
   }
   else if (SetLowerDateBound.isActionOfType(action)) {
     return { ...state, lowerDateBound: action.payload ? action.payload.startOf('day') : null };
