@@ -81,10 +81,10 @@ function Post({ post, index }: Props) {
           <Image />
           <Content>
             <MetaText>
-              {post.author.firstName} {post.author.lastName} - {new Date(post.timestamp).toLocaleString()}
+              {post.author} - {post.created.format('YYYY:MM:DD - HH:mm:ss')}
             </MetaText>
             <ContentText>
-              {post.content.substring(0, 150)}
+              {post.body.substring(0, 150)}
             </ContentText>
           </Content>
         </Flex>

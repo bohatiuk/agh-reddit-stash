@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { GlobalState } from '../../reducers';
 import Post from './Post';
 import { RedditPost } from '../../services/api/types';
-import moment from 'moment';
 
 function PostList({ posts, onPostPicked }: Props) {
   return (
@@ -19,11 +18,11 @@ function PostList({ posts, onPostPicked }: Props) {
 
 function mapStateToProps(state: GlobalState) {
   const filteredLower = state.tweets.lowerDateBound
-    ? state.tweets.posts.filter(post => state.tweets.lowerDateBound?.isSameOrBefore(moment(post.timestamp).startOf('day')))
+    ? state.tweets.posts.filter(post => state.tweets.lowerDateBound?.isSameOrBefore(post.created.startOf('day')))
     : state.tweets.posts;
 
   const filtered = state.tweets.upperDateBound
-    ? filteredLower.filter(post => state.tweets.upperDateBound?.isSameOrAfter(moment(post.timestamp).startOf('day')))
+    ? filteredLower.filter(post => state.tweets.upperDateBound?.isSameOrAfter(post.created.startOf('day')))
     : filteredLower;
 
   return {

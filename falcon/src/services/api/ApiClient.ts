@@ -1,7 +1,9 @@
 import { logger } from '../logger';
+import { ApiTranslator } from './ApiTranslator';
 import { RedditClient, RedditPost } from './types';
 export class ApiClient implements RedditClient {
   private static instance: ApiClient;
+  private translator = new ApiTranslator();
   private baseUrl = 'http://localhost:8080';
 
   private constructor() { }
@@ -20,10 +22,13 @@ export class ApiClient implements RedditClient {
 
   public async getPosts(page = 1): Promise<readonly RedditPost[]> {
     try {
-      logger.debug('Getting posts for page', page);
+      logger.debug('Gettings posts for page', page);
       const result = await this.get(`${this.baseUrl}/posts?page=${page}`);
 
-      return result as readonly RedditPost[];
+      logger.debug('Got posts for page', result);
+      const posts = (result as any[]).filter(p => p).map(p => this.translator.post(p));
+      logger.debug('Translated posts ', page, posts);
+      return posts;
     } catch (e) {
       logger.error('Couldn\'t load posts', e);
 

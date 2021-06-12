@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { SetLowerDateBound, SetUpperDateBound } from '../actions';
 import { DateField, withPlaceholder as DateFieldHOC } from '../components/dates/DashboardDateField';
 import DashboardDatePicker from '../components/dates/DashboardDatePicker';
+import OutsideClick from '../components/OutsideClick';
 import PostList from '../components/reddit/PostList';
 import PostPreview from '../components/reddit/PostPreview';
 import { GlobalState } from '../reducers';

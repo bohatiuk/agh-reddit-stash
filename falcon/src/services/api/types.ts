@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { ApiClient } from './ApiClient';
 
 export interface RedditClient {
@@ -6,13 +7,13 @@ export interface RedditClient {
 
 export const apiClient = ApiClient.getInstance();
 export interface RedditPost {
-  id: string;
-  author: {
-    userName: string;
-    firstName: string;
-    lastName: string;
-  };
-  content: string;
-  timestamp: number;
-  url: string;
+  id: number;
+  redditId: string;
+  title: string;
+  author: string;
+  subreddit: string;
+  body: string;
+  numComments: number;
+  score: number;
+  created: Moment;
 }

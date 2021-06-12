@@ -2,16 +2,16 @@
 
 class ConsoleLogger {
   public log(...args: any) {
-    console.log(args);
+    console.log(...args);
   }
   public debug(...args: any) {
-    console.debug(args);
+    console.debug(...args);
   }
   public warn(...args: any) {
-    console.log(args);
+    console.log(...args);
   }
   public error(...args: any) {
-    console.log(args);
+    console.log(...args);
   }
 }
 

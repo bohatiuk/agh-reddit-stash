@@ -8,17 +8,17 @@ import { styles } from '../../styles/styleguide';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 25px;
   padding: ${styles.m5};
 `;
 
 const Image = styled.div`
-  width: 440px;
-  min-width: 440px;
+  width: 120px;
+  min-width: 120px;
   height: 250px;
   min-height: 250px;
-  background: gray;
   border-radius: ${styles.defaultRadius};
+  border-right: 1px solid ${t => t.theme.colorP1};
 `;
 
 const ImageSection = styled.div`
@@ -28,6 +28,7 @@ const ImageSection = styled.div`
   align-items: center;
   padding: ${styles.m5} 0 ${styles.M1} ${styles.m5};
   border-bottom: 1px solid ${t => t.theme.colorGray0};
+  border-left: 1px solid ${t => t.theme.colorGray0};
 `;
 
 const ImageSectionText = styled.p`
@@ -69,23 +70,23 @@ function PostPreview({ post }: Props) {
           <Image />
           <ImageSectionText>
             <p>
-              Published by: {post.author.firstName} {post.author.lastName}
+              Published by: {post.author}
             </p>
             <p>
-              Published on: {new Date(post.timestamp).toLocaleString()}
+              Published on: {post.created.format('YYYY:MM:DD HH:mm:ss')}
             </p>
           </ImageSectionText>
         </ImageSection>
         <ContentText>
-          {post.content}
+          {post.body}
         </ContentText>
         <ContinueSection>
           <ContinueAction>
             Read analysis
           </ContinueAction>
-          <ContinueAction href={post.url} target='_blank'>
+          {/* <ContinueAction href={post.url} target='_blank'>
             See the original
-          </ContinueAction>
+          </ContinueAction> */}
         </ContinueSection>
       </Container>
     </Grow>
