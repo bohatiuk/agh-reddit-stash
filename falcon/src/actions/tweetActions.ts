@@ -1,6 +1,5 @@
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { AppThunk } from '.';
-import { ApiClient } from '../services/api/ApiClient';
 import { apiClient, RedditPost } from '../services/api/types';
 import { AppAction, TAction } from './types';
 

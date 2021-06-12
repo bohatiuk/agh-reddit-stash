@@ -1,6 +1,6 @@
 import { logger } from '../logger';
 import { ApiTranslator } from './ApiTranslator';
-import { RedditClient, RedditPost } from './types';
+import { LabelsResult, RedditClient, RedditPost } from './types';
 export class ApiClient implements RedditClient {
   private static instance: ApiClient;
   private translator = new ApiTranslator();
@@ -33,6 +33,22 @@ export class ApiClient implements RedditClient {
       logger.error('Couldn\'t load posts', e);
 
       return [];
+    }
+  }
+
+  public async getLabels(id: string): Promise<LabelsResult | undefined> {
+    try {
+      logger.debug('Gettings labels for post id', id);
+      const result = await this.get(`${this.baseUrl}/labels?id=${id}`);
+
+      logger.debug('Got labels', result);
+      const labels = this.translator.labels(result);
+      logger.debug('Translated posts ', labels);
+      return labels;
+    } catch (e) {
+      logger.error('Couldn\'t load posts', e);
+
+      return undefined;
     }
   }
 

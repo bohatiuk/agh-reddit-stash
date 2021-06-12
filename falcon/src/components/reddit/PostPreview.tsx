@@ -1,6 +1,7 @@
-import { Grow } from '@material-ui/core';
+import { Grow, Icon } from '@material-ui/core';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RedditPost } from '../../services/api/types';
 import { styles } from '../../styles/styleguide';
@@ -12,25 +13,21 @@ const Container = styled.div`
   padding: ${styles.m5};
 `;
 
-const Image = styled.div`
-  width: 120px;
-  min-width: 120px;
-  height: 250px;
-  min-height: 250px;
-  border-radius: ${styles.defaultRadius};
-  border-right: 1px solid ${t => t.theme.colorP1};
-`;
-
 const ImageSection = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: ${styles.m5} 0 ${styles.M1} ${styles.m5};
-  border-bottom: 1px solid ${t => t.theme.colorGray0};
-  border-left: 1px solid ${t => t.theme.colorGray0};
+  // border-bottom: 1px dotted ${t => t.theme.colorGray0};
 `;
-
+  const TitleSection = styled.div`
+  width: 100%;
+  text-align: center;
+  padding: ${styles.m5} 0 ${styles.M1} ${styles.m5};
+  border-bottom: 1px solid ${t => t.theme.colorGray0};
+  font: ${styles.fontH4};
+`;
 const ImageSectionText = styled.p`
   display: flex;
   flex-direction: column;
@@ -39,9 +36,12 @@ const ImageSectionText = styled.p`
   margin-left: ${styles.m5};
 `;
 
-const ContentText = styled.p`
+const Content = styled.p`
+  display: flex;
+  flex-direction: column;
   font: ${styles.fontN3};
-  text-align: left;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: ${styles.m5};
 `;
 
@@ -61,29 +61,69 @@ const ContinueAction = styled.a`
     color: ${t => t.theme.colorP1};
   }
 `;
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 
+  & span {
+    font-size: 7rem;
+  }
+`;
+const InfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: ${t => t.theme.colorGray1};
+
+  & span {
+    margin-right: 25px;
+    font-size: 2rem;
+  }
+`;
+const ContentBody = styled.div`
+  margin-top: 25px;
+  font: ${styles.fontN5};
+`;
 function PostPreview({ post }: Props) {
   return (
     <Grow appear in timeout={500}>
       <Container>
         <ImageSection>
-          <Image />
+          <IconContainer>
+              <Icon style={{ color: post.color }}>face</Icon>
+            </IconContainer>
           <ImageSectionText>
             <p>
-              Published by: {post.author}
-            </p>
-            <p>
-              Published on: {post.created.format('YYYY:MM:DD HH:mm:ss')}
+              u/{post.author}
             </p>
           </ImageSectionText>
         </ImageSection>
-        <ContentText>
-          {post.body}
-        </ContentText>
+        <TitleSection>
+          {post.title}
+        </TitleSection>
+        <Content>
+          <InfoContainer>
+            <Icon>schedule send</Icon>
+            {post.created.format('DD/MM/YYYY - HH:mm:ss')}
+          </InfoContainer>
+          <InfoContainer>
+            <Icon>forum</Icon>
+            {post.numComments}
+          </InfoContainer>
+          <InfoContainer>
+            <Icon>favorite border</Icon>
+            {post.score}
+          </InfoContainer>
+          <ContentBody>
+            {post.body || 'No content'}
+          </ContentBody>
+        </Content>
         <ContinueSection>
-          <ContinueAction>
-            Read analysis
-          </ContinueAction>
+          <Link to={`/post/${post.id}`}>
+            <ContinueAction>
+              Read analysis
+            </ContinueAction>
+          </Link>
           {/* <ContinueAction href={post.url} target='_blank'>
             See the original
           </ContinueAction> */}

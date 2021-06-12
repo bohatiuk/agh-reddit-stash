@@ -1,3 +1,4 @@
 export const config = {
-  documentationURL: 'https://github.com/bohatiuk/twitter-stash'
+  documentationURL: 'https://github.com/bohatiuk/twitter-stash',
+  subredditsNumber: 500,
 };

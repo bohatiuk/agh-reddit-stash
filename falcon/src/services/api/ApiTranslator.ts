@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { RedditPost } from './types';
+import { randomColor } from '../../utils/css';
+import { LabelsResult, RedditPost } from './types';
 
 export class ApiTranslator {
   public post(r: any): RedditPost {
@@ -9,10 +10,18 @@ export class ApiTranslator {
       title: r[2],
       author: r[3],
       subreddit: r[4],
-      body: r[5] === 'none' ? 'No content' : r[5],
+      body: r[5] === 'none' ? undefined : r[5],
       numComments: r[6],
       score: r[7],
-      created: moment(r[8])
+      created: moment(r[8]),
+      color: randomColor()
+    };
+  }
+
+  public labels(r: any): LabelsResult {
+    return {
+      sentiment: r[0],
+      category: r[1]
     };
   }
 }

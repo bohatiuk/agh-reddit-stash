@@ -33,27 +33,15 @@ const Flex = styled.div`
   align-items: center;
   justify-content: flex-start;
 `;
-const Image = styled.div`
-  position: relative;
-  width: 220px;
-  min-width: 220px;
-  height: 125px;
-  min-height: 125px;
-  border-radius: ${styles.defaultRadius};
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 
-  &:before {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-    filter: blur(2px) saturate(100%) contrast(45%) brightness(130%);
-    background-color: rgba(255,255,255,0.3);
+  & span {
+    font-size: 4rem;
   }
 `;
 const Content = styled.div`
-  max-width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -78,13 +66,15 @@ function Post({ post, index }: Props) {
     <Grow appear in timeout={300 + index * 200}>
       <Container>
         <Flex>
-          <Image />
+          <IconContainer>
+            <Icon style={{ color: post.color }}>face</Icon>
+          </IconContainer>
           <Content>
             <MetaText>
-              {post.author} - {post.created.format('YYYY:MM:DD - HH:mm:ss')}
+              u/{post.author} - {post.created.format('DD/MM/YYYY - HH:mm:ss')}
             </MetaText>
             <ContentText>
-              {post.body.substring(0, 150)}
+              {post.title.substring(0, 150)}
             </ContentText>
           </Content>
         </Flex>

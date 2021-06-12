@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { SetLowerDateBound, SetUpperDateBound } from '../actions';
 import { DateField, withPlaceholder as DateFieldHOC } from '../components/dates/DashboardDateField';
 import DashboardDatePicker from '../components/dates/DashboardDatePicker';
-import OutsideClick from '../components/OutsideClick';
 import PostList from '../components/reddit/PostList';
 import PostPreview from '../components/reddit/PostPreview';
 import { GlobalState } from '../reducers';
@@ -15,10 +14,11 @@ const ColumnContainer = styled.div`
   width: 95%;
   margin: 0 auto;
   display: flex;
+  justify-content: center;
 
-  & > * {
-    margin-right: 0 ${styles.m5};
-  }
+  // & > * {
+  //   margin-right: 0 ${styles.m5};
+  // }
 `;
 const FiltersContainer = styled.div`
   margin: ${styles.m2} 90px;
@@ -34,10 +34,10 @@ const Container = styled.div`
   margin: ${styles.m5} 0;
 `;
 const ListColumn = styled.div`
-  max-width: 50%;
+  flex: 3;
 `;
 const PreviewColumn = styled.div`
-  max-width: 45%;
+  flex: 2;
 `;
 
 function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: ReduxProps) {

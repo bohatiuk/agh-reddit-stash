@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CallToActionBtn, CallToActionOutlinedBtn } from '../common/Buttons';
-import Twitter from '../components/icons/Twitter';
+import Reddit from '../components/icons/Reddit';
 import { config } from '../config';
 import { styles } from '../styles/styleguide';
 
@@ -24,7 +24,7 @@ const BannerContainer = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: flex-start;
-  background-color: ${t => t.theme.colorBG3};
+  background-color: ${(t) => t.theme.colorBG3};
 `;
 
 const Actions = styled.div`
@@ -38,7 +38,7 @@ const Actions = styled.div`
 const TextTitle = styled.div`
   margin-top: 92px;
   font: ${styles.fontH5};
-  color: ${t => t.theme.colorP1};
+  color: ${(t) => t.theme.colorP1};
 `;
 
 const TestDescribtion = styled.div`
@@ -71,7 +71,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 240px;
+  max-width: 280px;
 `;
 
 const CardTitle = styled.div`
@@ -88,27 +88,19 @@ function Home() {
     <Container>
       <BannerContainer>
         <Overlay>
-          <Twitter />
+          <Reddit />
         </Overlay>
         <Actions>
-          <TextTitle>
-            TWITTER STASH
-          </TextTitle>
-          <TestDescribtion>
-            An application doing sth
-          </TestDescribtion>
+          <TextTitle>REDDIT STASH</TextTitle>
+          <TestDescribtion>Explore, search and analyze reddit posts</TestDescribtion>
           <GetStartedActions>
             <Link to='/dashboard'>
               <CallToActionBtn>Get started</CallToActionBtn>
             </Link>
             <a href={config.documentationURL} target='_blank' rel='noreferrer'>
               <CallToActionOutlinedBtn>
-                <span>
-                  Read docs
-                </span>
-                <Icon>
-                  keyboard_arrow_right
-                </Icon>
+                <span>Read docs</span>
+                <Icon>keyboard_arrow_right</Icon>
               </CallToActionOutlinedBtn>
             </a>
           </GetStartedActions>
@@ -118,23 +110,28 @@ function Home() {
         <CardsContainer>
           <Grow in appear timeout={500}>
             <Card>
-              <CardTitle>Something</CardTitle>
-              <CardDescribtion>Lorem ipsum dolor sit am. Lorem ipsum dolor sit am.</CardDescribtion>
+              <CardTitle>Explore posts</CardTitle>
+              <CardDescribtion>
+                Find reddit posts in our frequently updated database of {config.subredditsNumber} subreddits
+              </CardDescribtion>
             </Card>
           </Grow>
           <Grow in appear timeout={1200}>
-          <Card>
-            <CardTitle>Something</CardTitle>
-            <CardDescribtion> you open it directly in the browser, you will see an empty page.
-              sit am. Lorem ipsum dolor sit am.</CardDescribtion>
-          </Card>
+            <Card>
+              <CardTitle>Search posts</CardTitle>
+              <CardDescribtion>
+                Browse all posts or find more specific ones by applying filters. We allow
+                to search posts from a given time frame, posted by a specific user or in a specific subreddit
+              </CardDescribtion>
+            </Card>
           </Grow>
           <Grow in appear timeout={1500}>
-          <Card>
-            <CardTitle>Something</CardTitle>
-            <CardDescribtion>Lorem ipsum  you open it directly in the browser, you will
-              see an empty page. dolor sit am.</CardDescribtion>
-          </Card>
+            <Card>
+              <CardTitle>Analyze posts</CardTitle>
+              <CardDescribtion>
+                Find interesting posts and analyze their contents.
+              </CardDescribtion>
+            </Card>
           </Grow>
         </CardsContainer>
       </ContentContainer>

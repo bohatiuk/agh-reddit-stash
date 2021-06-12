@@ -1,7 +1,9 @@
-import { RedditPost } from './types';
+import { LabelsResult, RedditClient, RedditPost } from './types';
 import { range, shuffle } from 'lodash';
+import moment from 'moment';
+import { randomColor } from '../../utils/css';
 
-export class MockApiClient {
+export class MockApiClient implements RedditClient {
   private static instance: MockApiClient;
   private baseUrl = 'localhost:8000';
 
@@ -19,20 +21,29 @@ export class MockApiClient {
     this.baseUrl = `${url}:${port}`;
   }
 
-  public async getTweets(): Promise<readonly RedditPost[]> {
+  public async getPosts(): Promise<readonly RedditPost[]> {
     return shuffle(range(7).map(i => {
-      return {
-        id: 'raeanonid' + i,
-        author: {
-          userName: 'elonmusk',
-          firstName: 'Elon',
-          lastName: 'Musk'
-        },
-        content: 'Please consider moving to Starbase or greater Brownsville/South Padre area in Texas & encourage friends to do so! '
-          + 'SpaceX’s hiring needs for engineers, technicians, builders & essential support personnel of all kinds are growing rapidly.',
-        timestamp: Date.now() - 60000000 * i,
-        url: 'https://twitter.com/elonmusk/status/1376901399867441156'
+      const x: RedditPost = {
+        id: i,
+        redditId: 'xxx' + i,
+        author: 'some_user3' + i + '32',
+        body: i > 3 ? 'Some content of the post' : undefined,
+        title: 'Some incredibly interesting ' + i + ' title',
+        subreddit: 'design',
+        numComments: 6 * i,
+        score: 11 * i,
+        created: moment(Date.now() - 100000000 * i),
+        color: randomColor()
       };
-    })) as any;
+
+      return x;
+    }));
+  }
+
+  public async getLabels(id: string): Promise<LabelsResult> {
+    return {
+      sentiment: shuffle(['neutral', 'positive', 'negative'])[0],
+      category: shuffle(['category1'])[0]
+    };
   }
 }
