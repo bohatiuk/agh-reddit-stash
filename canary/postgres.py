@@ -87,6 +87,7 @@ def select_posts(page, author=None, subreddit=None, pagination=100):
         cursor.execute(stmt, (offset, pagination))
 
     row = cursor.fetchone()
+    result.append(row)
 
     while row is not None:
         row = cursor.fetchone()
