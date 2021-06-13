@@ -6,13 +6,15 @@ import { CenterDiv } from '../../common/CenterDiv';
 import { styles } from '../../styles/styleguide';
 
 const DateFieldDiv = styled(CenterDiv)`
-  transition: color ${styles.transitionParams};
+  transition: all ${styles.transitionParams};
   cursor: pointer;
-  border-bottom: 1px solid ${t => t.theme.colorGray0};
+  border-bottom: 2px solid ${t => t.theme.colorP1};
   padding: 0 ${styles.m2};
+  color: ${t => t.theme.colorP1};
 
   &:hover {
-    color: ${t => t.theme.colorP1};
+    color: ${t => t.theme.colorP2};
+    border-color: ${t => t.theme.colorP2};
   }
 `;
 

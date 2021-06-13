@@ -5,6 +5,8 @@ from spacy.util import minibatch, compounding
 from spacy.lang.en.stop_words import STOP_WORDS
 import string
 import pandas as pd
+import en_core_web_sm
+nlp = en_core_web_sm.load()
 
 
 POSTS_FOR_TEST = {}
@@ -17,7 +19,7 @@ def train_model(
     training_data: list, test_data: list, iterations: int = 20
 ) -> None:
     # Build pipeline
-    nlp = spacy.load("en_core_web_sm")
+    nlp = en_core_web_sm.load()
     if "textcat" not in nlp.pipe_names:
         textcat = nlp.create_pipe(
             "textcat", config={"architecture": "simple_cnn"}

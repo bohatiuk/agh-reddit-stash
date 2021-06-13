@@ -82,8 +82,6 @@ def notify(posts):
     sentiment_resp = requests.get("http://" + sentiment_svc["host"] + ":" + sentiment_svc["port"] +
                                   sentiment_svc["endpoints"]["posts"], params=payload)
 
-    raise RuntimeWarning(sentiment_resp.text)
-
     category_resp = requests.get("http://" + category_svc["host"] + ":" + category_svc["port"] +
                                  category_svc["endpoints"]["posts"], params=payload)
 

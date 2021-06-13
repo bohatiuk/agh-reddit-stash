@@ -12,15 +12,10 @@ create table sp1.subreddits (
 	created timestamp not null
 );
 
-create table sp1.category_prediction (
-    id serial primary key,
-    reddit_id varchar(6) not null,
-    category text not null
-);
 
-create table sp1.classified (
+
+create table sp1.labels (
     id serial primary key,
-    title text not null,
-    body text not null,
+    sentiment text not null,
     category text not null
 );

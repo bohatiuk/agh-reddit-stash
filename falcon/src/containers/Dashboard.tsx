@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import { TextField } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { SetLowerDateBound, SetUpperDateBound } from '../actions';
+import { CallToActionOutlinedBtn } from '../common/Buttons';
 import { DateField, withPlaceholder as DateFieldHOC } from '../components/dates/DashboardDateField';
 import DashboardDatePicker from '../components/dates/DashboardDatePicker';
+import HoverIcon from '../components/icons/HoverIcon';
 import PostList from '../components/reddit/PostList';
 import PostPreview from '../components/reddit/PostPreview';
 import { GlobalState } from '../reducers';
-import { RedditPost } from '../services/api/types';
+import { apiClient, RedditPost } from '../services/api/types';
 import { styles } from '../styles/styleguide';
 
 const ColumnContainer = styled.div`
@@ -15,14 +18,11 @@ const ColumnContainer = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: center;
-
-  // & > * {
-  //   margin-right: 0 ${styles.m5};
-  // }
 `;
 const FiltersContainer = styled.div`
   margin: ${styles.m2} 90px;
   display: flex;
+  align-items: flex-end;
 
   & > * {
     margin-right: ${styles.m4};
@@ -40,11 +40,43 @@ const PreviewColumn = styled.div`
   flex: 2;
 `;
 
+const FilterElement = styled.div`
+  margin: 0 15px;
+`;
+const SearchBtn = styled(CallToActionOutlinedBtn)`
+  width: 180px;
+  height: 36px;
+`;
+const PageNav = styled.div`
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  color: ${t => t.theme.colorP1};
+
+  & span {
+    font-size: 2rem;
+  }
+`;
 function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: ReduxProps) {
   const [currentPost, setCurrentPost] = useState<RedditPost>();
+  const [page, setPage] = useState(1);
+  const [inputUsername, setInputUsername] = useState('');
+  const [inputSubreddit, setInputSubreddit] = useState('');
+
+  useEffect(() => {
+    apiClient.getPosts({ page });
+  }, [page]);
 
   const handleTweetPost = (post: RedditPost) => {
     setCurrentPost(post);
+  };
+
+  const handleSearch = () => {
+    apiClient.getPosts({
+      page,
+      author: inputUsername || undefined,
+      subreddit: inputSubreddit || undefined
+    });
   };
 
   return (
@@ -60,10 +92,34 @@ function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: Red
           onChange={setUpperBound}
           value={upperBound}
         />
+        <FilterElement>
+          <TextField
+            value={inputUsername}
+            onChange={e => setInputUsername(e.target.value)}
+            id='reddit_username'
+            label='Reddit username'
+            />
+        </FilterElement>
+        <FilterElement>
+          <TextField
+            value={inputSubreddit}
+            onChange={e => setInputSubreddit(e.target.value)}
+            id='subreddit_name'
+            label='Subreddit name'
+          />
+        </FilterElement>
+        <SearchBtn onClick={handleSearch}>
+          Search
+        </SearchBtn>
       </FiltersContainer>
       <ColumnContainer>
         <ListColumn>
           <PostList onPostPicked={handleTweetPost} />
+          <PageNav>
+            <HoverIcon icon='chevron_left' onClick={page > 1 ? () => setPage(page  - 1) : undefined}></HoverIcon>
+            {page}
+            <HoverIcon icon='chevron_right' onClick={() => setPage(page  + 1)}></HoverIcon>
+          </PageNav>
         </ListColumn>
         {currentPost && (
           <PreviewColumn>
