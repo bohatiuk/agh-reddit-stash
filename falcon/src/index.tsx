@@ -39,6 +39,22 @@ const Global = createGlobalStyle`
   .MuiPickersToolbar-toolbar, .MuiPickersDay-daySelected {
     background-color: ${(t) => t.theme.colorP1} !important;
   }
+
+  .MuiInputBase-root {
+    color: ${t => t.theme.colorText} !important;
+  }
+
+  .MuiInputLabel-root {
+    color: ${t => t.theme.colorP1} !important;
+  }
+
+  .MuiInput-underline::before {
+    border-bottom: 2px solid ${t => t.theme.colorP1} !important;
+  }
+
+  .MuiInput-underline::after {
+    border-bottom: 2px solid ${t => t.theme.colorP1} !important;
+  }
 `;
 
 const Background = styled.div`

@@ -1,8 +1,13 @@
 import { Moment } from 'moment';
 import { MockApiClient } from './MockApiClient';
 
+export interface GetPostsParams {
+  page?: number;
+  subreddit?: string;
+  author?: string;
+}
 export interface RedditClient {
-  getPosts(page?: number): Promise<readonly RedditPost[]>;
+  getPosts(params: GetPostsParams): Promise<readonly RedditPost[]>;
   getLabels(id: string): Promise<LabelsResult | undefined>;
 }
 
