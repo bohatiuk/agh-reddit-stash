@@ -1,6 +1,6 @@
 import { logger } from '../logger';
 import { ApiTranslator } from './ApiTranslator';
-import { LabelsResult, RedditClient, RedditPost } from './types';
+import { GetPostsParams, LabelsResult, RedditClient, RedditPost } from './types';
 export class ApiClient implements RedditClient {
   private static instance: ApiClient;
   private translator = new ApiTranslator();
@@ -20,10 +20,12 @@ export class ApiClient implements RedditClient {
     this.baseUrl = `http://${url}:${port}`;
   }
 
-  public async getPosts(page = 1): Promise<readonly RedditPost[]> {
+  public async getPosts({ page = 1, subreddit, author }: GetPostsParams): Promise<readonly RedditPost[]> {
     try {
       logger.debug('Gettings posts for page', page);
-      const result = await this.get(`${this.baseUrl}/posts?page=${page}`);
+      const subredditPage = subreddit ? `&subreddit=${subreddit}` : '';
+      const authorPage = author ? `&author=${author}` : '';
+      const result = await this.get(`${this.baseUrl}/posts?page=${page}${subredditPage}${authorPage}`);
 
       logger.debug('Got posts for page', result);
       const posts = (result as any[]).filter(p => p).map(p => this.translator.post(p));

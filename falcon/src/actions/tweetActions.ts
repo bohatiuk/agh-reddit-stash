@@ -1,14 +1,14 @@
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { AppThunk } from '.';
-import { apiClient, RedditPost } from '../services/api/types';
+import { apiClient, GetPostsParams, RedditPost } from '../services/api/types';
 import { AppAction, TAction } from './types';
 
 export class LoadTweetsAction extends AppAction {
   public static type = 'LoadTweetsAction';
 
-  static create(): AppThunk {
+  static create(params: GetPostsParams = {}): AppThunk {
     return async dispatch => {
-      const posts = await apiClient.getPosts();
+      const posts = await apiClient.getPosts(params);
 
       dispatch({
         type: LoadTweetsAction.type,
