@@ -8,10 +8,13 @@ classifier = CategoryClassifier()
 
 @app.route('/posts', methods=['POST', 'GET'])
 def handle():
-    title = request.args.get("title")
-    body = request.args.get("body")
-    subreddit = request.args.get("subreddit")
-    return jsonify({"category": classifier.classify_post(title, body, subreddit)})
+    posts = request.get_json()
+    response = {}
+    for id, post in posts.items():
+        title, body, subreddit = post
+        category = classifier.classify_post(title, body, subreddit)
+        response[id] = category
+    return jsonify(response)
 
 
 if __name__ == '__main__':
