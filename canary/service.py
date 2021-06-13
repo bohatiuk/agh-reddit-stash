@@ -79,9 +79,12 @@ def notify(posts):
         payload[post_id] = {"post_title": post_title, "post_author": post_author, "post_body": post_body,
                             "subreddit_name": subreddit_name}
 
-    sentiment_resp = requests.get("http:" + sentiment_svc["host"] + ":" + sentiment_svc["port"] +
+    sentiment_resp = requests.get("http://" + sentiment_svc["host"] + ":" + sentiment_svc["port"] +
                                   sentiment_svc["endpoints"]["posts"], params=payload)
-    category_resp = requests.get("http:" + category_svc["host"] + ":" + category_svc["port"] +
+
+    raise RuntimeWarning(sentiment_resp.text)
+
+    category_resp = requests.get("http://" + category_svc["host"] + ":" + category_svc["port"] +
                                  category_svc["endpoints"]["posts"], params=payload)
 
     # postgres.insert_labels()

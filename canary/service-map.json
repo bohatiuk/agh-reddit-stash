@@ -12,12 +12,12 @@
     "endpoints": "nil"
   },
   "sentiment_analysis": {
-    "host": "localhost",
+    "host": "sentiment_analysis",
     "port": "8081",
     "endpoints": {"posts": "/posts"}
   },
   "category_prediction": {
-    "host": "localhost",
+    "host": "category_prediction",
     "port": "8082",
     "endpoints": {"posts": "/posts"}
   }

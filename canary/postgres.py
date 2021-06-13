@@ -41,13 +41,14 @@ def select():
 
     cursor.execute('select * from sp1.subreddits')
 
-    rows = cursor.fetchall()
+    row = cursor.fetchone()
+    result.append(row)
 
-    # while row is not None:
-    #     row = cursor.fetchone()
-    #     result.append(row)
+    while row is not None:
+        row = cursor.fetchone()
+        result.append(row)
 
-    raise RuntimeWarning(rows)
+    result = result[:-1]  # last in none
 
     cursor.close()
 
