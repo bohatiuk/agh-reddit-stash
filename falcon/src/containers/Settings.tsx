@@ -34,10 +34,10 @@ const Input = styled.input`
 `;
 export function Settings() {
   const [urlInput, setUrlInput] = useState(
-    LocalStorageService.getValue('server').url || '',
+    LocalStorageService.getValue('server')?.url || '',
   );
   const [portInput, setPortInput] = useState(
-    LocalStorageService.getValue('server').port || '',
+    LocalStorageService.getValue('server')?.port || '',
   );
 
   useEffect(() => {
