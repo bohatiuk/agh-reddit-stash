@@ -33,8 +33,12 @@ const Input = styled.input`
   font: ${darkTheme.fontN4};
 `;
 export function Settings() {
-  const [urlInput, setUrlInput] = useState('');
-  const [portInput, setPortInput] = useState('');
+  const [urlInput, setUrlInput] = useState(
+    LocalStorageService.getValue('server')?.url || '',
+  );
+  const [portInput, setPortInput] = useState(
+    LocalStorageService.getValue('server')?.port || '',
+  );
 
   useEffect(() => {
     const s: { url: string; port: string } =
