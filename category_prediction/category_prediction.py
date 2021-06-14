@@ -1,4 +1,4 @@
-from categorized_data import fetch_categorized_posts
+import pickle
 import nltk
 from nltk import word_tokenize
 from nltk.corpus import stopwords
@@ -11,13 +11,9 @@ class CategoryClassifier:
 
     def __init__(self):
         self.list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
-        self.posts = fetch_categorized_posts()
         self.lemmatizer = WordNetLemmatizer()
-        processed = []
-        for post in self.posts:
-            processed.append(self.process_post(post))
-
-        self.clf = nltk.NaiveBayesClassifier.train(processed)
+        file = open("classifier", "rb")
+        self.clf = pickle.load(file)
 
     def process_post(self, post):
         title, body, category = post
