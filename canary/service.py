@@ -44,26 +44,34 @@ def get_posts():
 def get_labels():
     id = request.args.get("id")
 
-    result = postgres.select_labels(int(id))
+    result = postgres.select_labels(id)
 
     response = jsonify(result)
     return response
 
-@app.route('/db', methods=['GET'])
+@app.route('/db_posts', methods=['GET'])
 @cross_origin()
-def db():
-    result = postgres.select()
+def db_posts():
+    result = postgres.select_db_posts()
+
+    return jsonify(result)
+
+@app.route('/db_labels', methods=['GET'])
+@cross_origin()
+def db_labels():
+    result = postgres.select_db_labels()
 
     return jsonify(result)
 
 
-
 tl = Timeloop()
 
-@tl.job(interval=timedelta(minutes=1))
+@tl.job(interval=timedelta(hours=1))
 def periodic_fetch():
+
     posts = fetch_posts()
-    postgres.insert(posts)
+
+    postgres.insert_posts(posts)
 
     notify(posts)
 
@@ -79,19 +87,16 @@ def notify(posts):
         payload[post_id] = {"post_title": post_title, "post_author": post_author, "post_body": post_body,
                             "subreddit_name": subreddit_name}
 
-    sentiment_resp = requests.get("http://" + sentiment_svc["host"] + ":" + sentiment_svc["port"] +
-                                  sentiment_svc["endpoints"]["posts"], params=payload)
+    sentiment_resp = requests.post("http://" + sentiment_svc["host"] + ":" + sentiment_svc["port"] +
+                                  sentiment_svc["endpoints"]["posts"], json=payload)
 
-    category_resp = requests.get("http://" + category_svc["host"] + ":" + category_svc["port"] +
-                                 category_svc["endpoints"]["posts"], params=payload)
 
-    # postgres.insert_labels()
+    category_resp = requests.post("http://" + category_svc["host"] + ":" + category_svc["port"] +
+                                 category_svc["endpoints"]["posts"], json=payload)
 
-    print("Sentiment prediction:")
-    print(sentiment_resp.json())
 
-    print("Category prediction:")
-    print(category_resp.json())
+
+    postgres.insert_labels(category_labels=category_resp.json(), sentiment_labels=sentiment_resp.json())
 
 
 if __name__ == '__main__':

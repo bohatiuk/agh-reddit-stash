@@ -11,7 +11,7 @@ def handle():
     posts = request.get_json()
     response = {}
     for id, post in posts.items():
-        title = post["post_tile"]
+        title = post["post_title"]
         body = post["post_body"]
         subreddit = post["subreddit_name"]
         category = classifier.classify_post(title, body, subreddit)

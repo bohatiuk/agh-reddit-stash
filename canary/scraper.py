@@ -8,7 +8,7 @@ subreddits = get_subreddits()
 def fetch_posts():
     posts = []
 
-    for subreddit_name in subreddits[:100]:
+    for subreddit_name in subreddits:
         try:
             subreddit = reddit.subreddit(subreddit_name)
             for post in subreddit.top("hour", limit=100):
@@ -31,23 +31,3 @@ def fetch_posts():
 
 def fetch_subreddits():
     return subreddits
-
-# def fetch_categorized_posts():
-#     reddit = get_reddit()
-#     subreddits = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
-#
-#     posts = []
-#     for subreddit_name in subreddits:
-#         try:
-#             subreddit = reddit.subreddit(subreddit_name)
-#             for post in subreddit.top(limit=3000):
-#                 body = post.selftext
-#                 if not body:
-#                     body = "none"
-#                 posts.append(
-#                     [post.id, post.title, subreddit_name, body, post.score, post.num_comments,
-#                      int(post.created)])
-#         except Forbidden:
-#             print(f"Exception for subreddit {subreddit_name}")
-#             continue
-#     return posts
