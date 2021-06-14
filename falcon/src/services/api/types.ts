@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { MockApiClient } from './MockApiClient';
+import { ApiClient } from './ApiClient';
 
 export interface GetPostsParams {
   page?: number;
@@ -11,8 +11,8 @@ export interface RedditClient {
   getLabels(id: string): Promise<LabelsResult | undefined>;
 }
 
-export const apiClient: RedditClient = MockApiClient.getInstance();
-// export const apiClient: RedditClient = ApiClient.getInstance();
+// export const apiClient: RedditClient = MockApiClient.getInstance();
+export const apiClient: RedditClient = ApiClient.getInstance();
 export interface RedditPost {
   id: number;
   redditId: string;
