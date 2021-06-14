@@ -1,5 +1,6 @@
 {
   "name": "falcon",
+  "homepage": "http://rstash.arkadiuszpasek.pl",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -35,7 +36,9 @@
     "serve": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "tslint --project ."
+    "lint": "tslint --project .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

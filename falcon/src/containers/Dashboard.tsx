@@ -2,15 +2,22 @@ import { TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { SetLowerDateBound, SetUpperDateBound } from '../actions';
+import {
+  LoadTweetsAction,
+  SetLowerDateBound,
+  SetUpperDateBound,
+} from '../actions';
 import { CallToActionOutlinedBtn } from '../common/Buttons';
-import { DateField, withPlaceholder as DateFieldHOC } from '../components/dates/DashboardDateField';
+import {
+  DateField,
+  withPlaceholder as DateFieldHOC,
+} from '../components/dates/DashboardDateField';
 import DashboardDatePicker from '../components/dates/DashboardDatePicker';
 import HoverIcon from '../components/icons/HoverIcon';
 import PostList from '../components/reddit/PostList';
 import PostPreview from '../components/reddit/PostPreview';
 import { GlobalState } from '../reducers';
-import { apiClient, RedditPost } from '../services/api/types';
+import { RedditPost, GetPostsParams } from '../services/api/types';
 import { styles } from '../styles/styleguide';
 
 const ColumnContainer = styled.div`
@@ -51,31 +58,37 @@ const PageNav = styled.div`
   margin: 10px 0;
   display: flex;
   align-items: center;
-  color: ${t => t.theme.colorP1};
+  color: ${(t) => t.theme.colorP1};
 
   & span {
     font-size: 2rem;
   }
 `;
-function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: ReduxProps) {
+function Dashboard({
+  setLowerBound,
+  setUpperBound,
+  lowerBound,
+  upperBound,
+  load,
+}: ReduxProps) {
   const [currentPost, setCurrentPost] = useState<RedditPost>();
   const [page, setPage] = useState(1);
   const [inputUsername, setInputUsername] = useState('');
   const [inputSubreddit, setInputSubreddit] = useState('');
 
   useEffect(() => {
-    apiClient.getPosts({ page });
-  }, [page]);
+    load({ page });
+  }, [page, load]);
 
   const handleTweetPost = (post: RedditPost) => {
     setCurrentPost(post);
   };
 
   const handleSearch = () => {
-    apiClient.getPosts({
+    load({
       page,
       author: inputUsername || undefined,
-      subreddit: inputSubreddit || undefined
+      subreddit: inputSubreddit || undefined,
     });
   };
 
@@ -95,30 +108,34 @@ function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: Red
         <FilterElement>
           <TextField
             value={inputUsername}
-            onChange={e => setInputUsername(e.target.value)}
-            id='reddit_username'
-            label='Reddit username'
-            />
+            onChange={(e) => setInputUsername(e.target.value)}
+            id="reddit_username"
+            label="Reddit username"
+          />
         </FilterElement>
         <FilterElement>
           <TextField
             value={inputSubreddit}
-            onChange={e => setInputSubreddit(e.target.value)}
-            id='subreddit_name'
-            label='Subreddit name'
+            onChange={(e) => setInputSubreddit(e.target.value)}
+            id="subreddit_name"
+            label="Subreddit name"
           />
         </FilterElement>
-        <SearchBtn onClick={handleSearch}>
-          Search
-        </SearchBtn>
+        <SearchBtn onClick={handleSearch}>Search</SearchBtn>
       </FiltersContainer>
       <ColumnContainer>
         <ListColumn>
           <PostList onPostPicked={handleTweetPost} />
           <PageNav>
-            <HoverIcon icon='chevron_left' onClick={page > 1 ? () => setPage(page  - 1) : undefined}></HoverIcon>
+            <HoverIcon
+              icon="chevron_left"
+              onClick={page > 1 ? () => setPage(page - 1) : undefined}
+            ></HoverIcon>
             {page}
-            <HoverIcon icon='chevron_right' onClick={() => setPage(page  + 1)}></HoverIcon>
+            <HoverIcon
+              icon="chevron_right"
+              onClick={() => setPage(page + 1)}
+            ></HoverIcon>
           </PageNav>
         </ListColumn>
         {currentPost && (
@@ -133,16 +150,18 @@ function Dashboard({ setLowerBound, setUpperBound, lowerBound, upperBound }: Red
 
 const mapDispatchToProps = {
   setLowerBound: SetLowerDateBound.create,
-  setUpperBound: SetUpperDateBound.create
+  setUpperBound: SetUpperDateBound.create,
+  load: (p: GetPostsParams) => LoadTweetsAction.create(p),
 };
 
 const mapStateToProps = (state: GlobalState) => {
   return {
     lowerBound: state.tweets.lowerDateBound,
-    upperBound: state.tweets.upperDateBound
+    upperBound: state.tweets.upperDateBound,
   };
 };
 
-type ReduxProps = typeof mapDispatchToProps & ReturnType<typeof mapStateToProps>;
+type ReduxProps = typeof mapDispatchToProps &
+  ReturnType<typeof mapStateToProps>;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard as any);

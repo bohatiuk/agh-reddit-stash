@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { GlobalState } from '../../reducers';
 import Post from './Post';
 import { RedditPost } from '../../services/api/types';
+import { logger } from '../../services/logger';
 
 function PostList({ posts, onPostPicked }: Props) {
   return (
@@ -18,15 +19,23 @@ function PostList({ posts, onPostPicked }: Props) {
 
 function mapStateToProps(state: GlobalState) {
   const filteredLower = state.tweets.lowerDateBound
-    ? state.tweets.posts.filter(post => state.tweets.lowerDateBound?.isSameOrBefore(post.created.startOf('day')))
+    ? state.tweets.posts.filter((post) =>
+        state.tweets.lowerDateBound?.isSameOrBefore(
+          post.created.startOf('day'),
+        ),
+      )
     : state.tweets.posts;
 
   const filtered = state.tweets.upperDateBound
-    ? filteredLower.filter(post => state.tweets.upperDateBound?.isSameOrAfter(post.created.startOf('day')))
+    ? filteredLower.filter((post) =>
+        state.tweets.upperDateBound?.isSameOrAfter(post.created.startOf('day')),
+      )
     : filteredLower;
 
+  logger.log('Map state list with', state.tweets);
+
   return {
-    posts: filtered
+    posts: filtered,
   };
 }
 type Props = ReturnType<typeof mapStateToProps> & {

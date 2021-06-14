@@ -1,10 +1,12 @@
+import { LocalStorageService } from '../LocalStorageService';
 import { logger } from '../logger';
 import { ApiTranslator } from './ApiTranslator';
 import { GetPostsParams, LabelsResult, RedditClient, RedditPost } from './types';
 export class ApiClient implements RedditClient {
   private static instance: ApiClient;
   private translator = new ApiTranslator();
-  private baseUrl = 'http://localhost:8080';
+  private maybeSaved = LocalStorageService.getValue('server');
+  private baseUrl = this.maybeSaved ? `http://${this.maybeSaved.url}:${this.maybeSaved.port}` : 'http://localhost:8080';
 
   private constructor() { }
 
@@ -18,6 +20,7 @@ export class ApiClient implements RedditClient {
 
   public setBaseUrl(url: string, port: string): void {
     this.baseUrl = `http://${url}:${port}`;
+    logger.log(`Api Url is now : ${this.baseUrl} from ${url} at ${port}`);
   }
 
   public async getPosts({ page = 1, subreddit, author }: GetPostsParams): Promise<readonly RedditPost[]> {
