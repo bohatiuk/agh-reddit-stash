@@ -45,6 +45,12 @@ def insert_labels(category_labels, sentiment_labels):
         cursor = conn.cursor()
 
         for post in sentiment_labels.keys():
+            # when reddit id is already in db
+            cursor.execute('select reddit_id from sp1.labels where reddit_id=%s;', (post,))
+            row = cursor.fetchone()
+            if row is not None:
+                continue
+
             category_label = category_labels[post]
             sentiment_label = sentiment_labels[post]
             stmt = f'insert into sp1.labels (id, reddit_id, sentiment_label, category_label) ' \
