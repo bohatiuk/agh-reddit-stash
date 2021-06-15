@@ -35,7 +35,7 @@ const ImageSection = styled.div`
 const ImageSectionText = styled.p`
   display: flex;
   flex-direction: column;
-  font: ${styles.fontN4};
+  font: ${styles.fontN5};
   text-align: left;
   margin-left: ${styles.m5};
 `;
@@ -70,7 +70,10 @@ const InfoContainer = styled.div`
 `;
 const ContentBody = styled.div`
   margin: 25px 0;
+  padding: 25px;
   font: ${styles.fontN5};
+  border-top: 1px solid ${t => t.theme.colorGray0};
+  border-bottom: 1px solid ${t => t.theme.colorGray0};
 `;
 const GoBackContainer = styled.div`
   display: flex;
@@ -95,26 +98,46 @@ const AnalysisSpan = styled.p`
 `;
 
 function PostAnalysis({ posts }: Props) {
-  const { id: routeId } = useParams() as { id: string };
-  const id = parseInt(routeId, 10);
-  const post = posts.find(p => p.id === id);
+  const { id } = useParams() as { id: string };
+  const post = posts.find(p => p.redditId === id);
   const [labels, setLabels] = useState<LabelsResult | undefined | null>();
 
   useEffect(() => {
-    apiClient.getLabels(routeId).then(result => {
+    apiClient.getLabels(id).then(result => {
       setLabels(result || null);
     });
-  }, [routeId]);
+  }, [id]);
 
   if (!post) {
     return <>No post</>;
   }
 
-  if (labels === undefined) {
-    return <div>Loading...</div>;
-  }
-  if (labels === null) {
-    return <div>Sorry, we couldn't find predictions for that post</div>;
+  const renderAnalysis = () => {
+    if (labels === undefined) {
+      return <div>Loading...</div>;
+    }
+    if (labels === null) {
+      return <div>Sorry, we couldn't find predictions for that post</div>;
+    }
+
+    return (
+      <>
+        <InfoContainer>
+          <Icon>lightbulb</Icon>
+          Post has been assigned a sentiment analysis score of
+          <AnalysisSpan>
+            {labels.sentiment}
+          </AnalysisSpan>
+        </InfoContainer>
+        <InfoContainer>
+          <Icon>lightbulb</Icon>
+          Post has been assigned a category analysis of
+          <AnalysisSpan>
+            {labels.category}
+          </AnalysisSpan>
+        </InfoContainer>
+      </>
+    );
   }
 
   return (
@@ -138,6 +161,11 @@ function PostAnalysis({ posts }: Props) {
               u/{post.author}
             </p>
           </ImageSectionText>
+          <ImageSectionText>
+            <p>
+              r/{post.subreddit}
+            </p>
+          </ImageSectionText>
         </ImageSection>
         <Content>
           <InfoContainer>
@@ -155,20 +183,7 @@ function PostAnalysis({ posts }: Props) {
           <ContentBody>
             {post.body || 'This post has no content'}
           </ContentBody>
-          <InfoContainer>
-            <Icon>lightbulb</Icon>
-            Post has been assigned a sentiment analysis score of
-            <AnalysisSpan>
-              {labels.sentiment}
-            </AnalysisSpan>
-          </InfoContainer>
-          <InfoContainer>
-            <Icon>lightbulb</Icon>
-            Post has been assigned a category analysis of
-            <AnalysisSpan>
-              {labels.category}
-            </AnalysisSpan>
-          </InfoContainer>
+          {renderAnalysis()}
         </Content>
       </Container>
     </Grow>

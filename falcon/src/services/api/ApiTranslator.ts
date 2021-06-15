@@ -18,10 +18,10 @@ export class ApiTranslator {
     };
   }
 
-  public labels(r: any): LabelsResult {
+  public labels(r: any, id: string): LabelsResult {
     return {
-      sentiment: r[0],
-      category: r[1]
+      sentiment: r[id]['sentiment_label'],
+      category: r[id]['category_label']
     };
   }
 }

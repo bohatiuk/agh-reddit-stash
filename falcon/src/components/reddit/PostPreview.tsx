@@ -7,6 +7,10 @@ import { RedditPost } from '../../services/api/types';
 import { styles } from '../../styles/styleguide';
 
 const Container = styled.div`
+  position: sticky;
+  right: 25px;
+  top: 25px;
+  width: 560px;
   display: flex;
   flex-direction: column;
   margin-top: 25px;
@@ -18,15 +22,15 @@ const ImageSection = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: ${styles.m5} 0 ${styles.M1} ${styles.m5};
+  padding: ${styles.m2} 0 ${styles.m2} ${styles.m5};
   // border-bottom: 1px dotted ${t => t.theme.colorGray0};
 `;
   const TitleSection = styled.div`
   width: 100%;
   text-align: center;
-  padding: ${styles.m5} 0 ${styles.M1} ${styles.m5};
+  padding: ${styles.m2} 0 ${styles.m2} ${styles.m4};
   border-bottom: 1px solid ${t => t.theme.colorGray0};
-  font: ${styles.fontH4};
+  font: ${styles.fontN6};
 `;
 const ImageSectionText = styled.p`
   display: flex;
@@ -42,7 +46,7 @@ const Content = styled.p`
   font: ${styles.fontN3};
   justify-content: flex-start;
   align-items: flex-start;
-  padding: ${styles.m5};
+  padding: ${styles.m2};
 `;
 
 const ContinueSection = styled.div`
@@ -82,7 +86,8 @@ const InfoContainer = styled.div`
 `;
 const ContentBody = styled.div`
   margin-top: 25px;
-  font: ${styles.fontN5};
+  text-align: left;
+  font: ${styles.fontN4};
 `;
 function PostPreview({ post }: Props) {
   return (
@@ -115,11 +120,11 @@ function PostPreview({ post }: Props) {
             {post.score}
           </InfoContainer>
           <ContentBody>
-            {post.body || 'No content'}
+            {post.body ? post.body.substring(0, 150) + '...' : 'No content'}
           </ContentBody>
         </Content>
         <ContinueSection>
-          <Link to={`/post/${post.id}`}>
+          <Link to={`/post/${post.redditId}`}>
             <ContinueAction>
               Read analysis
             </ContinueAction>

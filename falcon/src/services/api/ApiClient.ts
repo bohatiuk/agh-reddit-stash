@@ -47,7 +47,7 @@ export class ApiClient implements RedditClient {
       const result = await this.get(`${this.baseUrl}/labels?id=${id}`);
 
       logger.debug('Got labels', result);
-      const labels = this.translator.labels(result);
+      const labels = this.translator.labels(result, id);
       logger.debug('Translated posts ', labels);
       return labels;
     } catch (e) {

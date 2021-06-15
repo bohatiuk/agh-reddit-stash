@@ -41,7 +41,7 @@ const Container = styled.div`
   margin: ${styles.m5} 0;
 `;
 const ListColumn = styled.div`
-  flex: 3;
+  flex: 2;
 `;
 const PreviewColumn = styled.div`
   flex: 2;
