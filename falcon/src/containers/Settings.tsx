@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CallToActionBtn } from '../common/Buttons';
-import { ApiClient } from '../services/api/ApiClient';
+import { apiClient } from '../services/api/types';
 import { LocalStorageService } from '../services/LocalStorageService';
 import { darkTheme } from '../styles/styleguide';
 
@@ -50,7 +50,7 @@ export function Settings() {
   }, []);
 
   const handleSubmit = () => {
-    ApiClient.getInstance().setBaseUrl(urlInput, portInput);
+    apiClient.setBaseUrl(urlInput, portInput);
     LocalStorageService.saveValue('server', { url: urlInput, port: portInput });
   };
 

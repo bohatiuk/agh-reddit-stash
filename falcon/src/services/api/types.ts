@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { ApiClient } from './ApiClient';
+import { ConcreteApiClient } from './ConcreteApiClient';
 
 export interface GetPostsParams {
   page?: number;
@@ -9,10 +9,10 @@ export interface GetPostsParams {
 export interface RedditClient {
   getPosts(params: GetPostsParams): Promise<readonly RedditPost[]>;
   getLabels(id: string): Promise<LabelsResult | undefined>;
+  setBaseUrl(url: string, port: string): void;
 }
 
-// export const apiClient: RedditClient = MockApiClient.getInstance();
-export const apiClient: RedditClient = ApiClient.getInstance();
+export const apiClient: RedditClient = new ConcreteApiClient();
 export interface RedditPost {
   id: number;
   redditId: string;

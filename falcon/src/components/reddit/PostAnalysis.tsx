@@ -69,6 +69,7 @@ const InfoContainer = styled.div`
   }
 `;
 const ContentBody = styled.div`
+  width: 100%;
   margin: 25px 0;
   padding: 25px;
   font: ${styles.fontN5};

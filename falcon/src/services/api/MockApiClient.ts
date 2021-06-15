@@ -3,6 +3,7 @@ import { range, shuffle } from 'lodash';
 import moment from 'moment';
 import { randomColor } from '../../utils/css';
 import { logger } from '../logger';
+import { sentence, paragraph } from 'txtgen';
 
 export class MockApiClient implements RedditClient {
   private static instance: MockApiClient;
@@ -25,13 +26,14 @@ export class MockApiClient implements RedditClient {
   public async getPosts(params: GetPostsParams): Promise<readonly RedditPost[]> {
     logger.debug('Getting mock posts', params);
     const body = params.author ? params.author : params.subreddit;
+    console.log(sentence())
     return shuffle(range(7).map(i => {
       const x: RedditPost = {
         id: i,
         redditId: 'xxx' + i,
-        author: 'some_user3' + i + '32',
-        body: i > 3 ? 'Some content of the post' : undefined,
-        title: (body || '') + 'Some incredibly interesting ' + i + ' title',
+        author: sentence().slice(0, 12).replace(/\s/gi, '_').toLowerCase(),
+        body: i > 3 ? paragraph() : undefined,
+        title: (body || '') + sentence(),
         subreddit: 'design',
         numComments: 6 * i,
         score: 11 * i,
