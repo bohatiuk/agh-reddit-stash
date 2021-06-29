@@ -10,7 +10,7 @@ nltk.download('wordnet')
 class CategoryClassifier:
 
     def __init__(self):
-        self.list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
+        self.list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel", "food"]
         self.lemmatizer = WordNetLemmatizer()
         file = open("classifier", "rb")
         self.clf = pickle.load(file)
@@ -18,10 +18,11 @@ class CategoryClassifier:
     def process_post(self, post):
         title, body, category = post
         if body != 'none':
+            title += " "
             title += body
         tokens = word_tokenize(title)
         filtered = [self.lemmatizer.lemmatize(token.lower()) for token in tokens if
-                    token not in stopwords.words("english")]
+                    token not in stopwords.words("english") and token.isalnum()]
         words = dict()
         for word in filtered:
             words[word] = True
@@ -33,6 +34,8 @@ class CategoryClassifier:
         return (words, num)
 
     def classify_post(self, title, body, subreddit):
+        if subreddit.lower() in self.list_of_categories:
+            return subreddit.lower()
         processed = self.process_post((title, body, "category"))
         category = self.clf.classify(processed[0])
 

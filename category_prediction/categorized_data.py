@@ -9,7 +9,7 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 from prawcore import Forbidden
 
-list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel"]
+list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel", "food"]
 
 def get_reddit(secret_file="./static/secret.txt"):
     result = {}
@@ -26,10 +26,9 @@ def get_reddit(secret_file="./static/secret.txt"):
 
 def fetch_categorized_posts():
     reddit = get_reddit()
-    subreddits = ["sports", "health", "politics", "technology", "science", "culture", "travel"]
 
     posts = []
-    for subreddit_name in subreddits:
+    for subreddit_name in list_of_categories:
         print(subreddit_name)
         try:
             subreddit = reddit.subreddit(subreddit_name)
@@ -42,19 +41,20 @@ def fetch_categorized_posts():
         except Forbidden:
             print(f"Exception for subreddit {subreddit_name}")
             continue
-    print(len(posts))
+
     return posts
 
 def category_to_number(category):
     return list_of_categories.index(category) + 1
 
-def process_post(post):
+def process_post(post, lemmatizer):
     title, body, category = post
     if body != 'none':
+        title += " "
         title += body
     tokens = word_tokenize(title)
     filtered = [lemmatizer.lemmatize(token.lower()) for token in tokens if
-                token not in stopwords.words("english")]
+                token not in stopwords.words("english") and token.isalnum()]
     words = dict()
     for word in filtered:
         words[word] = True
@@ -70,7 +70,9 @@ if __name__ == "__main__":
     lemmatizer = WordNetLemmatizer()
     processed = []
     for post in posts:
-        processed.append(process_post(post))
+        processed.append(process_post(post, lemmatizer))
     clf = nltk.NaiveBayesClassifier.train(processed)
     file = open("classifier", "wb")
     pickle.dump(clf, file)
+
+
