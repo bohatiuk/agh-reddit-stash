@@ -9,7 +9,7 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 from prawcore import Forbidden
 
-list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel", "food"]
+list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel", "food", "business"]
 
 def get_reddit(secret_file="./static/secret.txt"):
     result = {}
@@ -41,7 +41,7 @@ def fetch_categorized_posts():
         except Forbidden:
             print(f"Exception for subreddit {subreddit_name}")
             continue
-
+    print(len(posts))
     return posts
 
 def category_to_number(category):

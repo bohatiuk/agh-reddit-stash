@@ -37,9 +37,11 @@ class CategoryClassifier:
         if subreddit.lower() in self.list_of_categories:
             return subreddit.lower()
         processed = self.process_post((title, body, "category"))
-        category = self.clf.classify(processed[0])
-
-        return self.number_to_category(category)
+        dist = self.clf.prob_classify(processed[0])
+        if dist.prob(dist.max()) < 0.5:
+            return "other"
+        else:
+            return self.number_to_category(dist.max())
 
 
     def category_to_number(self, category):
