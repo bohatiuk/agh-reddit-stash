@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 import psycopg2
 
 from servicemap import service_map
@@ -104,7 +106,7 @@ def select_db_posts():
     return result
 
 
-def select_posts(page, author=None, subreddit=None, pagination=100):
+def select_posts(page, author=None, subreddit=None, start=None, end=None, pagination=100):
     conn = _conn()
     cursor = conn.cursor()
 
@@ -113,6 +115,11 @@ def select_posts(page, author=None, subreddit=None, pagination=100):
     page = int(page)
     assert page >= 1
     offset = (page - 1) * pagination
+
+    if start is None:
+        start = datetime.now() - timedelta(days=365)
+    if end is None:
+        end = datetime.now()
 
     stmt = 'select * from sp1.subreddits '
     if subreddit is not None:
@@ -123,18 +130,22 @@ def select_posts(page, author=None, subreddit=None, pagination=100):
         else:
             stmt += 'where author=%s '
 
+    if subreddit is None and subreddit is None and author is None:
+        stmt += 'where created >= %s and created <= %s '
+    else:
+        stmt += ' and created >= %s and created <= %s '
 
     stmt += ' offset %s limit %s'
     stmt += ';'
 
     if subreddit is not None and author is not None:
-        cursor.execute(stmt, (subreddit, author, offset, pagination))
+        cursor.execute(stmt, (subreddit, author, start, end, offset, pagination))
     elif subreddit is not None:
-        cursor.execute(stmt, (subreddit, offset, pagination))
+        cursor.execute(stmt, (subreddit, start, end, offset, pagination))
     elif author is not None:
-        cursor.execute(stmt, (author, offset, pagination))
+        cursor.execute(stmt, (author, start, end, offset, pagination))
     else:
-        cursor.execute(stmt, (offset, pagination))
+        cursor.execute(stmt, (start, end, offset, pagination))
 
     row = cursor.fetchone()
     result.append(row)

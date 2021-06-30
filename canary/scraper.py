@@ -8,7 +8,7 @@ subreddits = get_subreddits()
 def fetch_posts():
     posts = []
 
-    for subreddit_name in subreddits:
+    for subreddit_name in subreddits[:10]:
         try:
             subreddit = reddit.subreddit(subreddit_name)
             for post in subreddit.top("hour", limit=100):
