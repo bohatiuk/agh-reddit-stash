@@ -7,7 +7,7 @@ import Post from './Post';
 function PostList({ posts, onPostPicked }: Props) {
   return (
     <div>
-      {posts.map((post, i) => (
+      {posts?.map((post, i) => (
         <div key={post.id} onClick={() => onPostPicked(post)}>
           <Post post={post} index={i} />
         </div>

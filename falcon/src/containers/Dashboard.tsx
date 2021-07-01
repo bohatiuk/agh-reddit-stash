@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import { CircularProgress, TextField } from '@material-ui/core';
 import { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -65,18 +65,22 @@ const PageNav = styled.div`
     font-size: 2rem;
   }
 `;
+const Preloader = styled.div`
+  margin-top: 120px;
+`;
 function Dashboard({
   setLowerBound,
   setUpperBound,
   lowerBound,
   upperBound,
   load,
+  posts,
 }: ReduxProps) {
   const [currentPost, setCurrentPost] = useState<RedditPost>();
   const [page, setPage] = useState(1);
   const [inputUsername, setInputUsername] = useState('');
   const [inputSubreddit, setInputSubreddit] = useState('');
-
+  console.log('posts', posts)
   useEffect(() => {
     load({ page });
   }, [page, load]);
@@ -94,6 +98,14 @@ function Dashboard({
       end: upperBound as Moment || undefined
 
     });
+  };
+  const handleClear = () => {
+    setInputSubreddit('');
+    setInputUsername('');
+    // tslint:disable-next-line:no-null-keyword
+    setLowerBound(null);
+    // tslint:disable-next-line:no-null-keyword
+    setUpperBound(null);
   };
 
   return (
@@ -126,26 +138,35 @@ function Dashboard({
           />
         </FilterElement>
         <SearchBtn onClick={handleSearch}>Search</SearchBtn>
+        <SearchBtn onClick={handleClear}>Clear</SearchBtn>
       </FiltersContainer>
       <ColumnContainer>
-        <ListColumn>
-          <PostList onPostPicked={handleTweetPost} />
-          <PageNav>
-            <HoverIcon
-              icon="chevron_left"
-              onClick={page > 1 ? () => setPage(page - 1) : undefined}
-            ></HoverIcon>
-            {page}
-            <HoverIcon
-              icon="chevron_right"
-              onClick={() => setPage(page + 1)}
-            ></HoverIcon>
-          </PageNav>
-        </ListColumn>
-        {currentPost && (
-          <PreviewColumn>
-            <PostPreview post={currentPost} />
-          </PreviewColumn>
+        {posts === null ? (
+          <Preloader>
+            <CircularProgress color="secondary" />
+          </Preloader>
+        ) : (
+          <>
+            <ListColumn>
+              <PostList onPostPicked={handleTweetPost} />
+              <PageNav>
+                <HoverIcon
+                  icon="chevron_left"
+                  onClick={page > 1 ? () => setPage(page - 1) : undefined}
+                ></HoverIcon>
+                {page}
+                <HoverIcon
+                  icon="chevron_right"
+                  onClick={() => setPage(page + 1)}
+                ></HoverIcon>
+              </PageNav>
+            </ListColumn>
+            {currentPost && (
+              <PreviewColumn>
+                <PostPreview post={currentPost} />
+              </PreviewColumn>
+            )}
+          </>
         )}
       </ColumnContainer>
     </Container>
@@ -162,6 +183,7 @@ const mapStateToProps = (state: GlobalState) => {
   return {
     lowerBound: state.tweets.lowerDateBound,
     upperBound: state.tweets.upperDateBound,
+    posts: state.tweets.posts
   };
 };
 
