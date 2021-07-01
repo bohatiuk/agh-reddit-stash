@@ -10,7 +10,7 @@ nltk.download('wordnet')
 class CategoryClassifier:
 
     def __init__(self):
-        self.list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel", "food"]
+        self.list_of_categories = ["sports", "health", "religion", "politics", "technology", "science", "culture", "travel", "food", "business"]
         self.lemmatizer = WordNetLemmatizer()
         file = open("classifier", "rb")
         self.clf = pickle.load(file)
