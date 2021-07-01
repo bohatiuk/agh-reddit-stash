@@ -3,9 +3,11 @@ import nltk
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+dler = nltk.downloader.Downloader()
+dler._update_index()
+dler.download('punkt')
+dler.download('stopwords')
+dler.download('wordnet')
 
 class CategoryClassifier:
 
