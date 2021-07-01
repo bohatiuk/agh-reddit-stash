@@ -1,4 +1,5 @@
 import { TextField } from '@material-ui/core';
+import { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -89,6 +90,9 @@ function Dashboard({
       page,
       author: inputUsername || undefined,
       subreddit: inputSubreddit || undefined,
+      start: lowerBound as Moment || undefined,
+      end: upperBound as Moment || undefined
+
     });
   };
 

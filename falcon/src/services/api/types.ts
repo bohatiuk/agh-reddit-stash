@@ -5,6 +5,8 @@ export interface GetPostsParams {
   page?: number;
   subreddit?: string;
   author?: string;
+  start?: Moment;
+  end?: Moment;
 }
 export interface RedditClient {
   getPosts(params: GetPostsParams): Promise<readonly RedditPost[]>;

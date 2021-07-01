@@ -23,12 +23,17 @@ export class ApiClient implements RedditClient {
     logger.log(`Api Url is now : ${this.baseUrl} from ${url} at ${port}`);
   }
 
-  public async getPosts({ page = 1, subreddit, author }: GetPostsParams): Promise<readonly RedditPost[]> {
+  public async getPosts({ page = 1, subreddit, author, start, end }: GetPostsParams): Promise<readonly RedditPost[]> {
     try {
       logger.debug('Gettings posts for page', page);
-      const subredditPage = subreddit ? `&subreddit=${subreddit}` : '';
-      const authorPage = author ? `&author=${author}` : '';
-      const result = await this.get(`${this.baseUrl}/posts?page=${page}${subredditPage}${authorPage}`);
+      const subredditParam = subreddit ? `&subreddit=${subreddit}` : '';
+      const authorParam = author ? `&author=${author}` : '';
+      const startParam  = start ? `&start=${start.format('YYYY-MM-DD')}` : '';
+      const endParam  = end ? `&end=${end.format('YYYY-MM-DD')}` : '';
+
+      const result = await this.get(
+        `${this.baseUrl}/posts?page=${page}${subredditParam}${authorParam}${startParam}${endParam}`
+      );
 
       logger.debug('Got posts for page', result);
       const posts = (result as any[]).filter(p => p).map(p => this.translator.post(p));
