@@ -8,6 +8,12 @@ export class LoadTweetsAction extends AppAction {
 
   static create(params: GetPostsParams = {}): AppThunk {
     return async dispatch => {
+      dispatch({
+        type: LoadTweetsAction.type,
+        // tslint:disable-next-line:no-null-keyword
+        payload: null,
+      });
+
       const posts = await apiClient.getPosts(params);
 
       dispatch({
@@ -22,7 +28,7 @@ export class LoadTweetsAction extends AppAction {
   }
 }
 export interface TLoadTweetsActions extends TAction {
-  payload: readonly RedditPost[];
+  payload: readonly RedditPost[] | null;
 }
 
 export class SetLowerDateBound extends AppAction {

@@ -100,7 +100,7 @@ const AnalysisSpan = styled.p`
 
 function PostAnalysis({ posts }: Props) {
   const { id } = useParams() as { id: string };
-  const post = posts.find(p => p.redditId === id);
+  const post = posts?.find(p => p.redditId === id);
   const [labels, setLabels] = useState<LabelsResult | undefined | null>();
 
   useEffect(() => {
