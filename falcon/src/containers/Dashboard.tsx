@@ -80,7 +80,6 @@ function Dashboard({
   const [page, setPage] = useState(1);
   const [inputUsername, setInputUsername] = useState('');
   const [inputSubreddit, setInputSubreddit] = useState('');
-  console.log('posts', posts)
   useEffect(() => {
     load({ page });
   }, [page, load]);
