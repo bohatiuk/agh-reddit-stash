@@ -33,8 +33,10 @@ def get_posts():
     subreddit = request.args.get("subreddit")
     author = request.args.get("author")
     page = request.args.get("page")
+    start = request.args.get("start")
+    end = request.args.get("end")
 
-    result = postgres.select_posts(page=page, author=author, subreddit=subreddit)
+    result = postgres.select_posts(page=page, author=author, start=start, end=end, subreddit=subreddit)
 
     response = jsonify(result)
     return response
@@ -66,7 +68,7 @@ def db_labels():
 
 tl = Timeloop()
 
-@tl.job(interval=timedelta(hours=1))
+@tl.job(interval=timedelta(minutes=2))
 def periodic_fetch():
 
     posts = fetch_posts()

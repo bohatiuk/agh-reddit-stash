@@ -5,7 +5,7 @@ import { TAction } from '../actions/types';
 import { RedditPost } from '../services/api/types';
 
 export interface State {
-  posts: readonly RedditPost[];
+  posts: readonly RedditPost[] | null;
   lowerDateBound: MaterialUiPickersDate;
   upperDateBound: MaterialUiPickersDate;
 }
